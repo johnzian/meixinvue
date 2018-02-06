@@ -7,13 +7,11 @@
 </template>
 
 <script>
-import test from './components/test';
 import headerComponent from '@/components/headerComponent';
 import footerComponent from '@/components/footerComponent';
 export default {
   name: 'App',
   components:{
-      test:test,
       headerComponent:headerComponent,
       footerComponent:footerComponent,
     },
@@ -45,7 +43,6 @@ a{
 	color: #686868;
 	width:100%;
 }
-
 .lf{
 	float:left;
 }

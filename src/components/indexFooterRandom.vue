@@ -1,6 +1,6 @@
 <template>
-  <div>
-      a test.
+  <div class="footer_random">
+      底部随机图
   </div>
 </template>
 
