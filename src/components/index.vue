@@ -87,9 +87,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
   }
 </script>
 <style scoped>
-.main{
-    
-}
+
 /*图片栏*/
 .leadto{
 	width:100%;
@@ -186,113 +184,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
     text-align: center
 }
 
-/*一楼*/
-.floor{
-	
-	width:100%;
-}
-.floor_top{
-	height:46px;
-	line-height:46px;
-	border-bottom: 1px solid #ccc;
-}
-.floor_title{
-	font: bold 24px/46px "微软雅黑";
-    color: #585858;
-}
-.floor_more{
-	font-size: 14px;
-    color: #585858;
-}
-.floordetail{
-	padding-top:20px;
-}
-.bigfloor{
-	width:288px;
-	height:513px;
-	overflow:hidden;
-}
-.bigfloor img{
-	position:relative;
-	transition:2s;
-}
-.bigfloor img:hover{
-	animation-name:bigpic;
-	animation-duration:0.5s;
-	animation-delay:0.5s;
-	animation-timing-function:easy;
-}
-.smallfloor{
-	width:912px;
-}
-.product_ul{
-	display:flex;
-	flex-wrap:wrap;
-}
-.product{
-	width:220px;
-	margin-left:8px;
-	text-align:center;
-	overflow:hidden;
-}
-.pic{
-	display:block;
-	width:220px;
-	height:220px;
-	overflow:hidden;
-}
-.product img{
-	width:220px;
-	height:220px;
-	transition:0.5s ease 0s;
-	overflow:hidden;
-}
-.product img:hover{
-	transform:scale(1.1);
-}
-.product_title{
-	color:#585858;
-	font-size:14px;
-	line-height:28px;
-}
-.product_title a{
-	text-overflow: ellipsis;
-	white-space:nowrap;
-	overflow:hidden;
-	display:inline-block;
-	width:220px;
-	color: #585858;
-}
-.price{
-    margin-right: 3px;
-    font-size: 16px;
-    font-weight: normal;
-    color: #ff2a53;
-}
-.discount{
-    margin-left: 3px;
-    color: #8d8d8d;
-    text-decoration: line-through;
-	font-size:12px;
-}
 
-@keyframes bigpic{
-	0%{
-		bottom:0px;
-	}
-	25%{
-		bottom:30px;
-	}
-	50%{
-		bottom:0px;
-	}
-	75%{
-		bottom:15px;
-	}
-	100%{
-		bottom:0px;
-	}
-}
 
 
 /*固定导航栏*/
@@ -413,38 +305,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 	font-size:24px;
 }
 
-/*底部随机产品图*/
-.footer_random{
-	width:100%;
-	height:200px;
-	padding-top:20px;
-	overflow: hidden;
-}
-.footer_random_inside{
-	overflow: hidden;
-	position: relative;
-}
-.footer_random_ul{
-	display:flex;
-	transition: all 1s;
-	position:relative;
-	width:2088px;
-}
-.footer_random_pic{
-	width:174px;
-	height:180px;
-	display:block;
-	overflow:hidden;
-}
-.footer_random_pic a img:hover{
-	transform:scale(1.2);
-}
-.footer_random_pic>a>img{
-	width:174px;
-	height:180px;
-	transition: all 1s;
-	overflow:hidden;
-}
+
 
 /*小广告*/
 .little_one{
