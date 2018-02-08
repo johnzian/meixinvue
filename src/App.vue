@@ -39,7 +39,7 @@ a{
 	margin:0 auto;
 	box-sizing:border-box;
 	overflow-x:hidden;
-	font-size:12px;
+	font-size:13px;
 	color: #686868;
 	width:100%;
 }

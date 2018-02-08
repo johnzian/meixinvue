@@ -30,11 +30,11 @@
 	<div id="navbar">
 		<div id="navbar_all"><a href="javascript:;">全部商品分类</a></div>
 		<ul>
-			<li><a href="index.HTML">首页</a></li>
-			<li class="navbar_big"><a href="products_cake.HTML">蛋糕馆</a></li>
-			<li class="navbar_big"><a href="products_quick.html">订饼快线</a></li>
-			<li class="navbar_big"><a href="products_sweet.html">零食点心</a></li>
-			<li class="navbar_big"><a href="fans_club.html">美粉专场</a></li>
+			<li><router-link :to="{ name: 'index'}">首页</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1001 }}">蛋糕馆</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1002 }}">订饼快线</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1003 }}">零食点心</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 404 }}">美粉专场</router-link></li>
 		</ul>
 	</div>
   </div>

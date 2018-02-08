@@ -240,7 +240,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 	width:35px;
 	height:35px;
 	text-align:center;
-	display:none;
+	display:block;
 }
 .nav_goheader a{
 	display:block;
@@ -276,7 +276,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 	position:fixed;
 	right:0px;
 	top:0px;
-	display:none;
+	display:block;
 }
 .nav_elevator>div{
 	width:35px;

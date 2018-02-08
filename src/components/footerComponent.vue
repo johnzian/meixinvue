@@ -46,11 +46,12 @@
 .footer{
 	width:100%;
 	height:391px;
-	margin-top:20px;
+	
 }
 .footer_big{
 	padding-top:50px;
 	background-color: #e16300;
+	margin-top:20px;
 }
 .footer_inside{
 	width:1200px;
