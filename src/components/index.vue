@@ -28,11 +28,11 @@
 
 			<!-- 一楼 -->
 
-            <indexFloor class="lunbo_inside"></indexFloor> 
+            <indexFloor ></indexFloor> 
 
 
 			<!-- 二楼 -->
-            <indexFloor class="lunbo_inside"></indexFloor> 
+            <indexFloor ></indexFloor> 
 
 			<!-- 固定导航栏 -->
 			<div class="nav">

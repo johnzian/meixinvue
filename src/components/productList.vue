@@ -69,10 +69,10 @@
 						<div class="products_inside">
 							<ul class="products_ul">
 								<li class="products" v-for="items in productList" :key="items">
-									<a href="#" class="product_pic_title">
+									<router-link :to="{ name: 'productdetail', params: { pid: 1 }}" class="product_pic_title">
 										<img src="../assets/img/220_201707302319317532290.png" alt="">
 										<p>熊孩子（焦糖榛子慕斯蛋糕）</p>
-									</a>
+									</router-link>
 									<p><span class="price">￥296.00</span><span class="normalpirce">￥296.00</span></p>
 								</li>
 							</ul>

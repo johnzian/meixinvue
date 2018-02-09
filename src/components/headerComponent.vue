@@ -4,8 +4,8 @@
 	<div id="toolbar">																																				<!-- 网页头登陆导航 -->
 		<ul id="tool_left">
 			<li class="welcome">您好，欢迎光临美心西饼</li>
-			<li><a href="login.HTML" target="_blank" class="login">登陆</a></li>
-			<li><a href="register.HTML" target="_blank" class="register">注册</a></li>
+			<li><router-link :to="{ name: 'login'}" class="login">登陆</router-link></li>
+			<li><router-link :to="{ name: 'register'}" class="register">注册</router-link></li>
 			<li><div id="weixin">微信商城<img src="../assets/img/jiantou_03.png"></div></li>
 		</ul>
 		<ul id="tools_right">
