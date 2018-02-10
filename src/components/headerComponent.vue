@@ -9,7 +9,7 @@
 			<li><div id="weixin">微信商城<img src="../assets/img/jiantou_03.png"></div></li>
 		</ul>
 		<ul id="tools_right">
-			<li class="tool_right"><a href="personnal_center.html">个人中心</a></li>
+			<li class="tool_right"><router-link :to="{ name: 'personalcenter'}">个人中心</router-link></li>
 			<li class="tool_right"><a href="MeiXinphone/Main.html">响应式VUE单页面版</a></li>
 			<li class="tool_right">分享到：</li>
 			<li class="tool_right"><a href="javascript:;">切换繁体</a></li>
@@ -17,10 +17,10 @@
 	</div>
 	<div class="headerMiddle clear">
 		<div class="logo">
-			<a href="index.HTML" target="_blank"><img src="../assets/img/201707181448325969790.jpg" id="logo"></a>
+			<router-link :to="{ name: 'index'}"><img src="../assets/img/201707181448325969790.jpg" id="logo"></router-link>
 		</div>
 		<div id="shoppingcart">
-			<a href="shopping_cart.html" target="_blank"><span>购物车<span class="cart_count">1</span>件</span></a>
+			<router-link :to="{ name: 'cart',params:{uid:1}}"><span>购物车<span class="cart_count">1</span>件</span></router-link>
 		</div>
 		<div id="search">
 			<input type="text" placeholder="输入关键字" id="input_serach">
