@@ -2,10 +2,10 @@
   <div class="footer_random">
       <div class="footer_random_inside">
 					<ul class="footer_random_ul">
-            <li class="footer_random_pic" v-for="item in productlist" :key="item">
-              <a href="product_details.html?pid=233">
-                <img src="../assets/img/220_201611211511533145590.jpg">
-              </a>
+            <li class="footer_random_pic" v-for="item in productlist" :key="item.pid">
+							<router-link :to="{ name: 'productdetail',params:{pid:item.pid}}">
+									<img :src="'../../static/'+item.limg" alt="1">
+							</router-link>
             </li>
           </ul>
 			</div>
@@ -16,9 +16,17 @@
   export default{
     data:function(){
       return{
-        productlist:[1,2,3,4,5,6,7]
+        productlist:[]
       }
-    }
+		},
+		mounted(){
+				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_footer_random.php')
+        .then(function(res){
+					for(var i=0;i<7;i++){
+						this.productlist.push(res.data[parseInt(Math.random()*(res.data.length))]);
+					}
+				})
+		}
   }
 </script>
 <style scoped>

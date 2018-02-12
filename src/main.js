@@ -5,6 +5,8 @@ import App from './App'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import Vuex from 'vuex'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 Vue.use(Vuex)
 Vue.use(VueAwesomeSwiper) 
 Vue.config.productionTip = false

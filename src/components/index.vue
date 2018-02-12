@@ -28,11 +28,11 @@
 
 			<!-- 一楼 -->
 
-            <indexFloor ></indexFloor> 
+            <indexFloor type="cake"></indexFloor> 
 
 
 			<!-- 二楼 -->
-            <indexFloor ></indexFloor> 
+            <indexFloor type="desert"></indexFloor> 
 
 			<!-- 固定导航栏 -->
 			<div class="nav">
@@ -65,7 +65,7 @@
 			<!-- 返回顶部 -->
 			<div class="goback">
 				<a href="javascript:;">
-					<img src="img/20151113153309_2414.png" alt="">
+					<img src="../../static/img/20151113153309_2414.png" alt="">
 					<p>返回顶部</p>
 				</a>
 			</div>

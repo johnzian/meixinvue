@@ -1,31 +1,31 @@
 <template>
   <div class="floor">
       <div class="floor_top">
-					<div class="lf floor_title">蛋糕馆</div>
-					<div class="rt floor_more"><a href="products_cake.HTML">查看更多产品>></a></div>
+					<div class="lf floor_title">{{title}}</div>
+					<div class="rt floor_more"><router-link :to="{ name: 'productlist',params:{type:tid}}">查看更多产品>></router-link></div>
 				</div>
 				<div class="floordetail clear">
 					<div class="bigfloor">
-						<img src="../assets/img/20170424144130_5178.jpg" alt="">
+						<img :src="bigpic" alt="">
 					</div>
 					<div class="smallfloor">
 						<ul class="product_ul index_cake">
-              <li class="product" v-for="item in productlist" :key="item">
-                <a href="product_details.html?pid=2333" class="pic">
-									<img src="../assets/img/220_201611211511533145590.jpg" alt="1">
-								</a>
+              <li class="product" v-for="item in productlist" :key="item.pid">
+								<router-link :to="{ name: 'productdetail',params:{pid:item.pid}}" class="pic">
+									<img :src="'../../static/'+item.limg" alt="1">
+								</router-link>
                 <p class="product_title">
 									<a href="product_details.html?pid=2333">
-										标题
+										{{item.title}}
 									</a>
 								</p>
                 <p>
                   <span class="price">
-                    ￥233
+                    ￥{{item.nprice}}
                   </span>
 
                   <span class="discount">
-                    ￥233
+                    ￥{{item.mprice}}
                   </span>
                 </p>
 						</li>
@@ -37,11 +37,34 @@
 
 <script>
   export default{
+		props: ['type'],
     data:function(){
       return{
-        productlist:[1,2,3,4,5,6,7,8]
+				productlist:[],
+				title:String,
+				bigpic:String,
+				tid:Number
       }
-    }
+		},
+		mounted(){
+			if(this.type=="cake"){
+				this.title="蛋糕馆";
+				this.bigpic="../../static/img/20170424144130_5178.jpg";
+				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_cake.php')
+        .then(function(res){
+					this.productlist=res.data;
+				})
+				this.tid=1001;
+			}else{
+				this.title="零食店";
+				this.bigpic="../../static/img/20170726171807_3157.png";
+				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_desert.php')
+        .then(function(res){
+					this.productlist=res.data;
+				})
+				this.tid=1002;
+			}
+		}
   }
 </script>
 <style scoped>

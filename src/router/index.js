@@ -72,5 +72,8 @@ export default new Router({
         }
       ]
     },
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    window.scrollTo(0,0);
+  }
 })
