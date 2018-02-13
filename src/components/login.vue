@@ -3,25 +3,25 @@
       <div id="login_div">
 				<div id="login_place">
 					<div id="login_form">
-						<div id="user_login" class="user_loginclass hover">&nbsp;用户登录&nbsp;</div>
-						<div id="phone_login" class="phone_loginclass">&nbsp;手机号登陆&nbsp;</div>
+						<div id="user_login" class="user_loginclass hover" @click="show(true)">&nbsp;用户登录&nbsp;</div>
+						<div id="phone_login" class="phone_loginclass" @click="show(false)">&nbsp;手机号登陆&nbsp;</div>
 
 
-						<div id="user_place">
-							<div id="userName_place">账号<input type="text" placeholder="请输入手机号码" id="userName"></div>
-							<div id="password_place">密码<input type="password" placeholder="请输入密码" id="pwd"></div>
+						<div id="user_place" v-if="showwhat">
+							<div id="userName_place">账号<input type="text" placeholder="请输入手机号码" id="userName" v-model="username"></div>
+							<div id="password_place">密码<input type="password" placeholder="请输入密码" id="pwd" v-model="password"></div>
 							<div class="option">
 								<div class="wenzi"><input type="checkbox" class="autologin">自动登录</div>
 								<div class="wenzi">注册后有机会获得更多优惠!</div>
 								<div class="zhuce_wangji">
 									<div id="zhuce"><a href="register.html">立即注册</a></div><div id="wangji"><a href="#">忘记密码？</a></div>
 								</div>
-								<div class="tijiao"><input type="submit" id="login_btn" value="登陆"></div>
+								<div class="tijiao"><input type="submit" id="login_btn" value="登陆" @click="nameLogin()"></div>
 							</div>
 						</div>
 
 
-						<div id="phone_place">
+						<div id="phone_place" v-if="!showwhat">
 							<div id="phoneName_place">手机号<input type="text" placeholder="请输入手机号码" id="phoneName">
 								<input type="button" id="getdongtai" value="获取验证码">
 							</div>
@@ -40,8 +40,37 @@
 </template>
 
 <script>
+	import store from '@/store/store'
   export default{
-
+	  data(){
+		  return{
+			  showwhat:true,
+			  username:"",
+			  password:"",
+			  userinfo:{
+				  uid:0,
+				  username:0,
+			  }
+		  }
+	  },
+	  methods:{
+		  show:function(result){
+			  this.showwhat=result;
+		  },
+		  nameLogin:function(){
+			  this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password)
+			  .then(function(res){
+				  if(res.body!=0){
+					  alert('登录成功');
+					  this.userinfo.uid=res.body.uid;
+					  this.userinfo.uphone=this.username;
+					  this.$store.commit('login',this.userinfo);
+					//   console.log(this.$store.state.userinfo);
+				  };
+			  })
+			
+		  }
+	  }
   }
 </script>
 <style scoped>
@@ -180,12 +209,7 @@
 	cursor: pointer;
 	font-size: 18px;
 }
-#user_place{
-	display:block;
-}
-#phone_place{
-	display:none;
-}
+
 
 #phoneName_place{
 	clear:both;

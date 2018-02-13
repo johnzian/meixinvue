@@ -35,7 +35,7 @@
             <indexFloor type="desert"></indexFloor> 
 
 			<!-- 固定导航栏 -->
-			<div class="nav">
+			<div class="nav" v-show="showscroll">
 				<div class="ico">
 					<a href="personnal_center.html"><img src="../assets/img/icon_03.png" alt=""></a>
 					<div class="abosulte_ico"><a href="personnal_center.html">用户中心</a></div>
@@ -49,22 +49,22 @@
 					<div class="abosulte_ico"><a href="javascript:;">优惠券</a></div>
 				</div>
 			</div>
-			<div class="nav_goheader">
+			<div class="nav_goheader" v-show="showscroll" @click="jumpto(0)">
 				<a href="javascript:;"><img src="../assets/img/jiantou.png" alt=""></a>
 				<div class="abosulte_header"><a href="javascript:;">顶部</a></div>
 			</div>
 
 			<!-- 电梯 -->
-			<div class="nav_elevator">
-				<div>导航</div>
-				<div>蛋糕</div>
-				<div>礼品</div>
+			<div class="nav_elevator" v-show="showscroll">
+				<div @click="jumpto(648)">导航</div>
+				<div @click="jumpto(1380)">蛋糕</div>
+				<div @click="jumpto(1998)">礼品</div>
 			</div>
 
 
 			<!-- 返回顶部 -->
 			<div class="goback">
-				<a href="javascript:;">
+				<a href="javascript:;" @click="jumpto(0)">
 					<img src="../../static/img/20151113153309_2414.png" alt="">
 					<p>返回顶部</p>
 				</a>
@@ -79,11 +79,36 @@ import indexLunbo from '@/components/indexLunbo';
 import indexFloor from '@/components/indexFloor';
 import indexFooterRandom from '@/components/indexFooterRandom';
   export default{
-  components:{
+  	components:{
       indexLunbo:indexLunbo,
       indexFloor:indexFloor,
       indexFooterRandom:indexFooterRandom,
-    },
+	},
+	data(){
+		return{
+			showscroll:false
+		}
+	},
+	mounted () {
+  		window.addEventListener('scroll', this.handleScroll)
+	},
+	methods:{
+		handleScroll () {
+			var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+			console.log(scrollTop)
+			if(scrollTop>=648){
+				this.showscroll=true;
+			}else{
+				this.showscroll=false;
+			}
+		},
+		jumpto(top){
+			window.scrollTo(0,top);
+		}
+	},
+	destroyed () {
+  		window.removeEventListener('scroll', this.handleScroll)
+	},
   }
 </script>
 <style scoped>

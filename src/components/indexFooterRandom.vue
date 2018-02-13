@@ -2,7 +2,7 @@
   <div class="footer_random">
       <div class="footer_random_inside">
 					<ul class="footer_random_ul">
-            <li class="footer_random_pic" v-for="item in productlist" :key="item.pid">
+            <li class="footer_random_pic" v-for="(item,index) in productlist" :key="index">
 							<router-link :to="{ name: 'productdetail',params:{pid:item.pid}}">
 									<img :src="'../../static/'+item.limg" alt="1">
 							</router-link>

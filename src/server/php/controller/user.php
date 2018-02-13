@@ -40,7 +40,7 @@ function login(){
 		if(count($user)!=0){
 			session_start();
 			$_SESSION["uid"]=$user[0]["uid"];
-			echo $user[0]["uid"];
+			echo json_encode($user[0]);
 		}else{
 			echo 0;
 		}
