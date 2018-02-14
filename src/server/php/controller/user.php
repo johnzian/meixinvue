@@ -23,9 +23,9 @@ function checkphone(){
 		$result=mysqli_query($conn,$sql);
 		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$users[]= $row;}
 		if(count($users)==0){
-			echo 0;
+			echo json_encode(0);
 		}else{
-			echo 1;
+			echo json_encode(1);
 		}
 	}
 }
@@ -72,7 +72,7 @@ function phonelogin(){
 		if(count($user)!=0){
 			session_start();
 			$_SESSION["uid"]=$user[0]["uid"];
-			echo 1;
+			echo json_encode($user[0]);
 		}else{
 			echo 0;
 		}
@@ -89,6 +89,7 @@ function phoneregister(){
 		while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$user[]= $row;}
 		session_start();
 		$_SESSION["uid"]=$user[0]["uid"];
+		echo json_encode($user[0]);
 	}
 }
 function islogin(){

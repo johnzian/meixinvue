@@ -4,8 +4,9 @@
 	<div id="toolbar">																																				<!-- 网页头登陆导航 -->
 		<ul id="tool_left">
 			<li class="welcome">您好，欢迎光临美心西饼</li>
-			<li><router-link :to="{ name: 'login'}" class="login">登陆</router-link></li>
-			<li><router-link :to="{ name: 'register'}" class="register">注册</router-link></li>
+			<li  v-if="!$store.state.islogin"><router-link :to="{ name: 'login'}" class="login">登陆</router-link></li>
+			<li  v-if="!$store.state.islogin"><router-link :to="{ name: 'register'}" class="register">注册</router-link></li>
+			<li  v-if="$store.state.islogin"><span class="register">欢迎回来，{{$store.state.userinfo.uphone}}</span></li>
 			<li><div id="weixin">微信商城<img src="../assets/img/jiantou_03.png"></div></li>
 		</ul>
 		<ul id="tools_right">
@@ -41,8 +42,15 @@
 </template>
 
 <script>
+	import store from '@/store/store'
   export default{
-
+	  data(){
+		  return{
+			  islogin:true,//检测是否登录
+		  }
+	  },
+	  mounted:function(){
+	  }
   }
 </script>
 <style scoped>
