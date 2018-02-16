@@ -9,7 +9,11 @@
 				<div class="nav_left">
 					<!-- 一楼 -->
 					<div class="floor_left_top">
-						<div class="nav_title"><a href="#">蛋糕馆</a></div>
+						<div class="nav_title">
+							<router-link :to="{ name: 'productlist', query: { type: 1001 }}">
+								蛋糕馆
+							</router-link>
+						</div>
 						<div class="nav_list">
 							<ul>
 								<li><a href="#">与爱共尝</a></li>
@@ -21,13 +25,13 @@
 							</ul>
 						</div>
 						<div class="left_block"></div>
-						<div class="nav_title"><a href="#">订饼快线</a></div>
+						<div class="nav_title"><router-link :to="{ name: 'productlist', query: { type: 1002 }}">订饼快线</router-link></div>
 						<div class="left_block"></div>
-						<div class="nav_title"><a href="#">零食点心</a></div>
+						<div class="nav_title"><router-link :to="{ name: 'productlist', query: { type: 1003 }}">零食点心</router-link></div>
 						<div class="left_block"></div>
-						<div class="nav_title"><a href="#">秋季人气推荐</a></div>
+						<div class="nav_title"><a href="javascript:;">秋季人气推荐</a></div>
 						<div class="left_block"></div>
-						<div class="nav_title"><a href="#">手信礼盒</a></div>
+						<div class="nav_title"><a href="javascript:;">手信礼盒</a></div>
 						<div class="left_block"></div>
 					</div>
 				</div>
@@ -68,12 +72,12 @@
 					<div class="products_main">
 						<div class="products_inside">
 							<ul class="products_ul">
-								<li class="products" v-for="items in productList" :key="items">
-									<router-link :to="{ name: 'productdetail', params: { pid: 1 }}" class="product_pic_title">
-										<img src="../assets/img/220_201707302319317532290.png" alt="">
-										<p>熊孩子（焦糖榛子慕斯蛋糕）</p>
+								<li class="products" v-for="(items,index) in productList" :key="index">
+									<router-link :to="{ name: 'productdetail', params: { pid: items.pid }}" class="product_pic_title">
+										<img :src="'../../static/'+items.sbimg" alt="">
+										<p>{{items.title}}</p>
 									</router-link>
-									<p><span class="price">￥296.00</span><span class="normalpirce">￥296.00</span></p>
+									<p><span class="price">￥{{items.nprice}}</span><span class="normalpirce">￥{{items.mprice}}</span></p>
 								</li>
 							</ul>
 						</div>
@@ -92,9 +96,42 @@ import page from '@/components/page';
     },
       data:function(){
           return{
-              productList:[1,2,3,4,5,6,7,8,9,10,11,12]
+			  productList:[],
+			  type:0
           }
-      }
+	  },
+	  created:function(){
+		this.getproduct();
+	  },
+	  methods:{
+		  getproduct(){
+			this.type=this.$route.query.type;//把地址接受到的quey的品种号赋给变量
+			  this.productList=[];//每一次使用函数都刷新，为了分页准备
+			  if(this.type>1000){
+				  if(this.type==1001){//如果是蛋糕馆
+					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/cake_list.php')
+					  .then(function(res){
+						  this.productList=res.data.data;
+					  })
+				  }else if(this.type==1002){//快线
+					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/quick_list.php')
+					  .then(function(res){
+						  this.productList=res.data.data;
+					  })
+				  }else if(this.type==1003){//零食
+					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/desert_list.php')
+					  .then(function(res){
+						  this.productList=res.data.data;
+					  })
+				  }
+			  }else{
+
+			  }
+		  }
+	  },
+	  watch:{
+		  '$route':['getproduct']//负责监听路由是否变化
+	  }
   }
 </script>
 <style scoped>
@@ -296,8 +333,7 @@ import page from '@/components/page';
 .products_main{
     margin-top: 20px;
 }
-.products_inside{
-}
+
 .products_ul{
 	display: flex;
     flex-wrap: wrap;

@@ -21,7 +21,7 @@
 			<router-link :to="{ name: 'index'}"><img src="../assets/img/201707181448325969790.jpg" id="logo"></router-link>
 		</div>
 		<div id="shoppingcart">
-			<router-link :to="{ name: 'cart',params:{uid:1}}"><span>购物车<span class="cart_count">1</span>件</span></router-link>
+			<router-link :to="{ name: 'cart',params:{uid:$store.state.userinfo.uphone}}"><span>购物车<span class="cart_count">1</span>件</span></router-link>
 		</div>
 		<div id="search">
 			<input type="text" placeholder="输入关键字" id="input_serach">
@@ -32,10 +32,10 @@
 		<div id="navbar_all"><a href="javascript:;">全部商品分类</a></div>
 		<ul>
 			<li><router-link :to="{ name: 'index'}">首页</router-link></li>
-			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1001 }}">蛋糕馆</router-link></li>
-			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1002 }}">订饼快线</router-link></li>
-			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 1003 }}">零食点心</router-link></li>
-			<li class="navbar_big"><router-link :to="{ name: 'productlist', params: { type: 404 }}">美粉专场</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', query: { type: 1001 }}">蛋糕馆</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', query: { type: 1002 }}">订饼快线</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', query: { type: 1003 }}">零食点心</router-link></li>
+			<li class="navbar_big"><router-link :to="{ name: 'productlist', query: { type: 404 }}">美粉专场</router-link></li>
 		</ul>
 	</div>
   </div>
