@@ -1,9 +1,7 @@
 <template>
   <div class="page">
 	<a href="javascript:;" class="prev">上一页</a>
-	<a href="javascript:;" class="pages active">1</a>
-	<a href="javascript:;" class="pages">2</a>
-	<a href="javascript:;" class="pages">3</a>
+	<a href="javascript:;" class="pages" v-bind:class="{active:pnum==(item)}" v-for="(item,index) in pcount" :key="index">{{item}}</a>
 	<a href="javascript:;" class="next">下一页</a>
 	<span class="totalpage">第1/5页 共85记录</span>
 	<input type="text" class="page_go" placeholder="第1页">
@@ -13,7 +11,33 @@
 
 <script>
   export default{
-
+	  props: ['pagecount','pnum'],
+	  mounted(){
+		//   for(var i = 1 ; i <= this.$props.pagecount ; i ++){
+		// 	  this.pcount.push(i);
+		//   };
+		this.getpage();
+	  },
+	  methods:{
+		  getpage:function(){
+			this.pcount=[];
+			if(this.$props.pnum-1>0){
+			  this.pcount.push(this.$props.pnum-1);
+		  	};
+		  	this.pcount.push(this.$props.pnum);
+			if(this.$props.pnum+1<=this.$props.pagecount){
+			  this.pcount.push(this.$props.pnum+1);
+		 	};
+		  }
+	  },
+	  data(){
+		  return{
+			  pcount:[]
+		  }
+	  },
+		watch:{
+		  '$route':['getpage']//负责监听路由是否变化
+	  }
   }
 </script>
 <style scoped>

@@ -81,7 +81,14 @@
 								</li>
 							</ul>
 						</div>
-						<page></page>
+						<div class="page">
+							<a href="javascript:;" class="prev" @click="pageControl(-1)" v-if="canReduce">上一页</a>
+							<a href="javascript:;" class="pages" v-bind:class="{active:pnum==(item)}" @click="pagego(item)" v-for="(item,index) in pcount" :key="index">{{item}}</a>
+							<a href="javascript:;" class="next" @click="pageControl(1)" v-if="canAdd">下一页</a>
+							<span class="totalpage">第{{pnum}}/{{pagecount}}页 共{{productsCount}}记录</span>
+							<input type="text" class="page_go" placeholder="第1页" v-model="jumpNum">
+							<button class="page_go_btn" @click="pagejump()">确定</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -89,48 +96,103 @@
 </template>
 
 <script>
-import page from '@/components/page';
+// import page from '@/components/page';
   export default{
-    components:{
-      page,
-    },
+    // components:{
+    //   page,
+	// },
+	//组件已废弃，把简单变为更复杂了。
       data:function(){
           return{
-			  productList:[],
-			  type:0
+			  productList:[],//产品列表
+			  type:0,//地址栏用于识别是什么产品种类
+			  pnum:1,//当前页面
+			  pagecount:0,//总页数
+			  pcount:[],//用于显示有几页的数组
+			  canReduce:false,//上一页变量
+			  canAdd:false,//下一页变量
+			  productsCount:0,//当前页面总商品
+			  jumpNum:1,//用于直接输入框跳转页面
           }
 	  },
-	  created:function(){
+	  watch:{
+		  '$route':{handler(){
+			  this.pnum=1;//如果路由变化了，强制把页数变为1
+			  this.getproduct();//运行函数获得产品
+		  }}//负责监听路由是否变化
+	  },
+	  mounted:function(){
 		this.getproduct();
 	  },
 	  methods:{
 		  getproduct(){
 			this.type=this.$route.query.type;//把地址接受到的quey的品种号赋给变量
 			  this.productList=[];//每一次使用函数都刷新，为了分页准备
+			  this.pcount=[];//这用于页面的号码
 			  if(this.type>1000){
 				  if(this.type==1001){//如果是蛋糕馆
-					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/cake_list.php')
-					  .then(function(res){
-						  this.productList=res.data.data;
-					  })
+					  this.getlist('cake_list.php');
 				  }else if(this.type==1002){//快线
-					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/quick_list.php')
-					  .then(function(res){
-						  this.productList=res.data.data;
-					  })
+					  this.getlist('quick_list.php');
 				  }else if(this.type==1003){//零食
-					  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/desert_list.php')
-					  .then(function(res){
-						  this.productList=res.data.data;
-					  })
+					  this.getlist('desert_list.php');
 				  }
 			  }else{
 
 			  }
+		  },
+		  //用于请求
+		  getlist(php){
+			this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/'+php+'?pnum='+this.pnum)
+			.then(function(res){
+				 this.productList=res.data.data;
+				 this.pagecount=res.data.pagecount;
+				 this.productsCount=res.data.productscount;
+				//载入当前页数
+				if(this.pnum-2>0){//如果有少于2的页数
+					this.pcount.push(this.pnum-2);
+				};
+
+				if(this.pnum-1>0){//如果有少于1的页数
+					this.pcount.push(this.pnum-1);
+					//控制是否能上一页
+					this.canReduce=true;
+				}else{
+					this.canReduce=false;
+				};
+
+				this.pcount.push(this.pnum);//放入当前页数
+
+				if(this.pnum+1<=this.pagecount){//如果页数+1比总页数少
+					this.pcount.push(this.pnum+1);
+					//控制是否能下一页
+					this.canAdd=true;
+				}else{
+					this.canAdd=false;
+				};
+
+				if(this.pnum+2<=this.pagecount){//如果页数+2比总页数少
+					this.pcount.push(this.pnum+2);
+				};
+			})
+		  },
+		  //跳转页面
+		  pagego(key){
+			  this.pnum=key;//把当前的页数赋值，然后运行函数
+			  this.getproduct();
+		  },
+		  //上一页和下一页
+		  pageControl(count){
+			  this.pnum+=count;//把获得到的count加到pnum里面然后执行函数
+			  this.getproduct();
+		  },
+		  //页面跳转
+		  pagejump(){
+			  //如果绑定输入框里面的值判断，然后直接放入page的函数里面执行
+			  if(this.jumpNum > 0 && this.jumpNum <= this.pagecount){
+				  this.pagego(parseInt(this.jumpNum));
+			  }
 		  }
-	  },
-	  watch:{
-		  '$route':['getproduct']//负责监听路由是否变化
 	  }
   }
 </script>
@@ -372,6 +434,48 @@ import page from '@/components/page';
     margin-top: 2px;
     color: #999;
 }
-
-
+/* 分页 */
+.page{
+	float:right;
+	display: flex;
+	line-height:28px;
+}
+.page>*{
+	margin-left:10px;
+	color: #999;
+}
+.page>a{
+	border: 1px solid #cccccc;
+    line-height: 28px;
+    border-radius: 3px;
+    width: 30px;
+    height: 28px;
+    display: block;
+	text-align:center;
+}
+.prev{
+    width: 60px !important;
+}
+.pages{
+}
+.pages.active{
+	color:#ff2d2e;
+	border:1px solid #ff2d2e;
+}
+.next{
+    width: 60px !important;
+}
+.totalpage{
+}
+.page_go{
+    width: 40px;
+    text-align: center;
+}
+.page_go_btn{
+	background: #e16300;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
 </style>
