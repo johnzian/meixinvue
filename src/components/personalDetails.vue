@@ -31,7 +31,16 @@
 
 <script>
   export default{
+      data(){
+          return{
+              productdetails:[]
+          }
+      },
+      mounted:function(){
 
+      },
+      methods:{
+      }
   }
 </script>
 <style scoped>

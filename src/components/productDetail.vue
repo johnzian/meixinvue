@@ -2,7 +2,7 @@
   <div class="main">
 	<!-- 面包屑导航 -->
 	<div class="bread">
-				<a href="index.html">首页</a>>><a href="javascript:;" class="bread_now">流心芒果蛋糕</a>
+				<a href="index.html">首页</a>>><a href="javascript:;" class="bread_now">{{product.title}}</a>
 	</div>
 
 	<!-- 产品详情 -->
@@ -12,7 +12,7 @@
 					<!-- 上半的左边图片 -->
 					<div class="details_top_left">
 						<div class="smallbox">
-							<img class="smallpic" src="../assets/img/220_201611211511533145590.jpg">
+							<img class="smallpic" :src="'../../static/'+product.sbimg">
 							<div class="floatbox"></div>
 						</div>
 						<div class="bigbox">
@@ -27,21 +27,22 @@
 					</div>
 					<!--上右的商品选项-->
 					<div class="details_top_right">
-						<p class="title"></p>
+						<p class="title">{{product.title}}</p>
 						<p class="describe">
+							{{product.subtitle}}
 						</p>
 						<div class="price_box">
-							<p class="normal_pirce">市场价：<span class="normal_yuan">¥148</span><span class="normal_money"></span></p>
-							<p class="now_price">现售价：<span class="now_yuan">¥148</span><span class="now_money"></span></p>
+							<p class="normal_pirce">市场价：<span class="normal_yuan">¥{{product.mprice}}</span><span class="normal_money"></span></p>
+							<p class="now_price">现售价：<span class="now_yuan">¥{{product.nprice}}</span><span class="now_money"></span></p>
 						</div>
                         <div><p class="when_pick">预计取饼时间：<span class="when_time">2017-2-05</span></p></div>
 						<ul class="product_pound">
 							<li class="product_first">重量：</li>
-							<li class="pound_li">1磅</li>
+							<li class="pound_li">{{product.pound}}磅</li>
 						</ul>
 						<ul class="product_tase">
 							<li class="product_first">口味：</li>
-							<li class="tase_li">芝士味</li>
+							<li class="tase_li">{{product.taste}}</li>
 						</ul>
 						<div class="user_choice">请选择：<span class="check_pound"></span><span class="check_taste"></span></div>
 						<div class="product_num">
@@ -75,14 +76,14 @@
 						<div class="topsales">
 							<p>热销推荐</p>
 							<ul class="topsales_ul">
-                                <li class="topsales_li" v-for="items in topSales" :key="items">
-                                    <a href="product_details.html?pid=2333" class="topsales_a">
-                                    <img class="topsales_img" src="../assets/img/220_201611211511533145590.jpg"/>
+                                <li class="topsales_li" v-for="(items,index) in topSales" :key="index">
+                                    <router-link :to="{ name: 'productdetail', query: { pid: items.pid }}" class="topsales_a">
+                                    <img class="topsales_img" :src="'../../static/'+items.mimg"/>
                                         <div class="topsales_font">
-                                            <p class="topsales_title">abc</p>
-                                            <p class="topsales_price">148</p>
+                                            <p class="topsales_title">{{items.title}}</p>
+                                            <p class="topsales_price">¥{{items.nprice}}</p>
                                         </div>
-                                    </a>
+                                    </router-link>
                                 </li>
 							</ul>
 						</div>
@@ -103,12 +104,12 @@
 				<div class="product_footer">
 					<p class="maybe">猜你喜欢</p>
 					<ul class="product_footer_ul">
-						<li class="product_footer_li" v-for="items in maybe" :key="items">
-							<a href="#" class="product_footer_a">
-								<img class="product_footer_img" src="../assets/img/220_201707302319317532290.png"/>
-								<p class="product_footer_title">鲜果蛋白脆脆</p>
-								<p class="product_footer_price">148.00</p>
-							</a>
+						<li class="product_footer_li" v-for="(items,index) in maybe" :key="index">
+							<router-link :to="{ name: 'productdetail', query: { pid: items.pid }}" class="product_footer_a">
+								<img class="product_footer_img" :src="'../../static/'+items.limg"/>
+								<p class="product_footer_title">{{items.title}}</p>
+								<p class="product_footer_price">¥{{items.nprice}}</p>
+							</router-link>
 						</li>
 					</ul>
 				</div>
@@ -137,12 +138,42 @@
 
 <script>
   export default{
-      data:function(){
+      data(){
           return{
-              topSales:[1,2,3,4,5,6,7,8,9,10],
-              maybe:[1,2,3,4,5,6]
+              topSales:[],
+			  maybe:[],
+			  product:{}
           }
-      }
+      },
+	  mounted(){
+		  this.getproduct();
+		  this.gettopsales();
+		  this.maybelike();
+	  },
+	  methods:{
+		  getproduct(){
+			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/getproductbyid.php?pid='+this.$route.query.pid)
+			  .then(function(res){
+				  this.product=res.data;
+			  })
+		  },
+		  gettopsales(){
+			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/top_ten.php')
+			  .then(function(res){
+				  this.topSales=res.data;
+			  })
+		  },
+		  maybelike(){
+			this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/maybelike.php?pid='+this.$route.query.pid)
+			.then(function(res){
+				this.maybe=res.data;
+				console.log(res.data);
+			})
+		  }
+	  },
+	  watch:{
+		  '$route':'getproduct'
+	  }
   }
 </script>
 <style scoped>
@@ -516,13 +547,12 @@ margin-top: 10px;
 	margin: 10px 0px;
 	display: flex;
 	justify-content: space-between;
+	padding: 0px 15px;
 }
 .product_footer_li{
 	width: 160px;
 	overflow: hidden;
 	text-align: center;
-	margin-left: 26px;
-	margin-right: 10px;
 }
 .product_footer_a{
 
