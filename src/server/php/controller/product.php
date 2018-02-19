@@ -113,6 +113,7 @@ function quick_list(){
 function chess_list(){
 	global $conn;
 	@$pnum=$_REQUEST["pnum"];
+	@$type=$_REQUEST["type"];
 	if(!$pnum){
 		$pnum=1;
 	}else{
@@ -120,210 +121,10 @@ function chess_list(){
 	}
 	$pagesize=12;
 	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=4 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
+	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=$type AND mx_product.is_shop=1 LIMIT $page,$pagesize";
 	$result=mysqli_query($conn,$sql);
 	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=4  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function child_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=9 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=9  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function happyshare_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=10 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=10  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function loveshare_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=7 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=7  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function lovestyle_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=8 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=8  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function mango_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=2 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=2  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function milk_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=1 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=1  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function qiaokeli_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=5 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=5  AND mx_product.is_shop=1";
-	$result = mysqli_query($conn,$sql);
-	$row = mysqli_fetch_row($result);
-	$pagecount=ceil($row[0]/$pagesize);
-	$output=array(
-		"pnum"=>$pnum,//当前页
-		"productscount"=>$row[0],//商品数量
-		"pagecount"=>$pagecount,//商品总页数
-		"data"=>$products
-	);
-	echo json_encode($output);
-}
-function cuicui_list(){
-	global $conn;
-	@$pnum=$_REQUEST["pnum"];
-	if(!$pnum){
-		$pnum=1;
-	}else{
-		$pnum=$_REQUEST["pnum"];
-	}
-	$pagesize=12;
-	$page=($pnum-1)*$pagesize;
-	$sql="SELECT mx_product.pid,mx_product.title,mx_product.mprice,mx_product.nprice,mx_product_pic.sbimg FROM mx_product,mx_product_pic WHERE mx_product.pid=mx_product_pic.pid AND mx_product.tid=3 AND mx_product.is_shop=1 LIMIT $page,$pagesize";
-	$result=mysqli_query($conn,$sql);
-	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){$products[]= $row;}
-	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=3  AND mx_product.is_shop=1";
+	$sql="SELECT COUNT(*) FROM mx_product WHERE mx_product.tid=$type  AND mx_product.is_shop=1";
 	$result = mysqli_query($conn,$sql);
 	$row = mysqli_fetch_row($result);
 	$pagecount=ceil($row[0]/$pagesize);
@@ -357,7 +158,7 @@ function searchproduct(){
 	global $conn;
 	@$key=$_REQUEST["key"];
 	if($key){
-		$sql="select mx_product.pid,mx_product.nprice,mx_product.mprice,mx_product.title,mx_product_pic.limg from mx_product,mx_product_pic where mx_product.pid=mx_product_pic.pid";
+		$sql="select mx_product.pid,mx_product.nprice,mx_product.mprice,mx_product.title,mx_product_pic.sbimg from mx_product,mx_product_pic where mx_product.pid=mx_product_pic.pid";
 		$keys=explode(" ",$key);
 		for($i=0;$i<count($keys);$i++){
 			$sql.=" AND mx_product.subtitle like '%".$keys[$i]."%'";

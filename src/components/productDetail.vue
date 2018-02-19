@@ -343,7 +343,7 @@
 	border: 1px solid #ff5417;
 }
 .product_tase{
-	display: none;
+	display: flex;
 	margin-left: 20px;
 	margin-top: 15px;
 }

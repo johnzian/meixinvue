@@ -10,6 +10,7 @@ import personalCenter from '@/components/personalCenter'
 import personalAddress from '@/components/personalAddress'
 import personalDetails from '@/components/personalDetails'
 import personalOrder from '@/components/personalOrder'
+import productSearch from '@/components/productSearch'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/cart',
       name: 'cart',
       component: cart
+    },
+    {
+      path: '/productsearch',
+      name: 'productsearch',
+      component: productSearch
     },
     {
       path: '/personalcenter',

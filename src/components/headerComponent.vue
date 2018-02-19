@@ -24,8 +24,8 @@
 			<router-link :to="{ name: 'cart',params:{uid:$store.state.userinfo.uphone}}"><span>购物车<span class="cart_count">1</span>件</span></router-link>
 		</div>
 		<div id="search">
-			<input type="text" placeholder="输入关键字" id="input_serach">
-			<input type="button" id="btn_serach" value="搜索">
+			<input type="text" placeholder="输入关键字" id="input_serach" v-model="keyword">
+			<input type="button" id="btn_serach" value="搜索" @click="search()">
 		</div>
 	</div>
 	<div id="navbar">
@@ -47,9 +47,19 @@
 	  data(){
 		  return{
 			  islogin:true,//检测是否登录
+			  keyword:""//搜索内容
 		  }
 	  },
 	  mounted:function(){
+	  },
+	  methods:{
+		  //搜索
+		  search(){
+			  this.$router.push({
+				  name:'productsearch',
+				  query:{kw:this.keyword}
+			  })
+		  }
 	  }
   }
 </script>
