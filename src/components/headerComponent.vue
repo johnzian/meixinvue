@@ -21,7 +21,7 @@
 			<router-link :to="{ name: 'index'}"><img src="../assets/img/201707181448325969790.jpg" id="logo"></router-link>
 		</div>
 		<div id="shoppingcart">
-			<router-link :to="{ name: 'cart',params:{uid:$store.state.userinfo.uphone}}"><span>购物车<span class="cart_count">1</span>件</span></router-link>
+			<router-link :to="{ name: 'cart',params:{uid:$store.state.userinfo.uid}}"><span>购物车<span class="cart_count">{{$store.state.userinfo.cartcount}}</span>件</span></router-link>
 		</div>
 		<div id="search">
 			<input type="text" placeholder="输入关键字" id="input_serach" v-model="keyword">
@@ -47,10 +47,16 @@
 	  data(){
 		  return{
 			  islogin:true,//检测是否登录
-			  keyword:""//搜索内容
+			  keyword:"",//搜索内容
+			userinfo:{//vuex变量
+				  uid:0,
+				  uphone:0,
+				  cartcount:0
+			  },
 		  }
 	  },
 	  mounted:function(){
+		  this.checklogin();
 	  },
 	  methods:{
 		  //搜索
@@ -59,6 +65,21 @@
 				  name:'productsearch',
 				  query:{kw:this.keyword}
 			  })
+		  },
+		  //检测是否登录，用于解决vuex刷新丢失问题
+		  checklogin(){
+			  console.log(sessionStorage.getItem("uphone"))
+			  if(sessionStorage.getItem("uid") && sessionStorage.getItem("uphone")){
+				this.userinfo.uid = sessionStorage.getItem("uid");
+				this.userinfo.uphone = sessionStorage.getItem("uphone");
+				this.$store.commit('login',this.userinfo);
+				this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
+				.then((res)=>{
+					this.userinfo.cartcount=parseInt(res.data);
+					this.$store.commit('checkcart',this.userinfo.cartcount);
+					this.$router.push({name: 'index'});
+				})
+			  }
 		  }
 	  }
   }

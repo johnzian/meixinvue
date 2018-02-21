@@ -40,7 +40,7 @@ function login(){
 		if(count($user)!=0){
 			session_start();
 			$_SESSION["uid"]=$user[0]["uid"];
-			echo json_encode($user[0]);
+			echo json_encode(1);
 		}else{
 			echo 0;
 		}
@@ -107,8 +107,7 @@ function islogin(){
 }
 function checkcart(){
 	global $conn;
-	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	if($uid){
 		$sql="SELECT COUNT(uid) FROM mx_cart where uid='$uid'";
 		$result=mysqli_query($conn,$sql);

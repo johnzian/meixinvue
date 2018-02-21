@@ -40,7 +40,8 @@
 </template>
 
 <script>
-	import store from '@/store/store'
+	import store from '@/store/store';
+	import axios from 'axios';
   export default{
 	  data(){
 		  return{
@@ -49,7 +50,8 @@
 			  password:"",//密码
 			  userinfo:{//vuex变量
 				  uid:0,
-				  username:0,
+				  uphone:0,
+				  cartcount:0
 			  },
 			  isA:true,//样式切换
 			  randomNumber:"点击获取验证码",//动态码模拟
@@ -65,20 +67,56 @@
 		  },
 		  //用户名登陆
 		  nameLogin:function(){
-			  this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password)
-			  .then(function(res){
-				  if(res.body!=0){
+			  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password)
+			  .then((res)=>{
+				  if(res.data!=0){
 					  alert('登录成功');
-					  this.userinfo.uid=res.body.uid;
+					  this.userinfo.uid=res.data.uid;
 					  this.userinfo.uphone=this.username;
 					  this.$store.commit('login',this.userinfo);
-					  this.$router.push({name: 'index'});
+					  this.setSession(res.data.uid,this.username);
 					//   console.log(this.$store.state.userinfo);
+					this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
+					.then((res)=>{
+						this.userinfo.cartcount=parseInt(res.data);
+						this.$store.commit('checkcart',this.userinfo.cartcount);
+						this.$router.push({name: 'index'});
+					})
 				  }else{
 					  alert('登陆失败');
 				  };
 			  })
-			
+
+			//此处是利用resource改变消息头登录，记不住session。
+
+			// this.$http({
+            //     method:'post',
+            //     url:'http://127.0.0.1/meixinvue/src/server/php/route/user_login.php',
+            //     data:{'uphone':this.username,'upwd':this.password},
+            //     headers: {"X-Requested-With": "XMLHttpRequest"
+			// 		},
+			// 	emulateJSON: true,
+			// })
+			// .then(function(res){
+			// 	console.log(res);
+			// })
+
+
+			//使用了修改axios改变消息头的方法，返回数值总是空，也记不住session，放弃。
+
+			// this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password,
+			// {
+			// },
+			// {
+			// 	headers:{
+			// 		"Content-Type":"application/json;charset=utf-8"
+			// 	},
+			// 	withCredentials : true
+			// }
+			// )
+			// .then(function(res){
+			// 	console.log(res);
+			// })
 		  },
 		  //获取动态码
 		  getrandom:function(){
@@ -90,31 +128,38 @@
 		  //手机号登陆
 		  phonelogin:function(){
 			  if(this.randomNumber==this.checkRandom){
-				  this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/user_check.php?uphone='+this.phone)
+				  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_check.php?uphone='+this.phone)
 				  .then(function(res){
-					  if(res.body==1){//如果用户已经注册
+					  if(res.data==1){//如果用户已经注册
 							this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_login.php?uphone='+this.phone)
 							.then(function(res){
-								if(res.body!=0){
+								if(res.data!=0){
 									alert('登录成功');
-									this.userinfo.uid=res.body.uid;
+									this.userinfo.uid=res.data.uid;
 									this.userinfo.uphone=this.phone;
 									this.$store.commit('login',this.userinfo);
+									this.setSession(res.data.uid,this.phone);
 									this.$router.push({name: 'index'});
 								};
 							})
 					  }else{//如果用户没有注册
-							this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_register.php?uphone='+this.phone)
+							this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_register.php?uphone='+this.phone)
 							.then(function(res){
 									alert('注册成功并已登陆，密码为你的手机号');
-									this.userinfo.uid=res.body.uid;
+									this.userinfo.uid=res.data.uid;
 									this.userinfo.uphone=this.phone;
 									this.$store.commit('login',this.userinfo);
+									this.setSession(res.data.uid,this.phone);
 									this.$router.push({name: 'index'});
 							})
 					  }
 				  })
 			  }
+		  },
+		  //记住session
+		  setSession:function(uid,uphone){
+			sessionStorage.setItem("uid", uid); 
+			sessionStorage.setItem("uphone", uphone); 
 		  }
 	  }
   }

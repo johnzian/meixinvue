@@ -11,7 +11,7 @@
 					<div class="smallfloor">
 						<ul class="product_ul index_cake">
               <li class="product" v-for="item in productlist" :key="item.pid">
-								<router-link :to="{ name: 'productdetail',params:{pid:item.pid}}" class="pic">
+								<router-link :to="{ name: 'productdetail',query:{pid:item.pid}}" class="pic">
 									<img :src="'../../static/'+item.limg" alt="1">
 								</router-link>
                 <p class="product_title">

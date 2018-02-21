@@ -2,8 +2,7 @@
 require_once("../init.php");
 function addcart(){
 	global $conn;
-	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	@$pid=$_REQUEST["pid"];
 	@$count=$_REQUEST["count"];
 	@$bless=$_REQUEST["bless"];

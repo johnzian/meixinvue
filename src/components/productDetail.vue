@@ -47,7 +47,7 @@
 						<div class="user_choice">请选择：<span class="check_pound"></span><span class="check_taste"></span></div>
 						<div class="product_num">
 							<span class="count_title">数量：</span>
-							<input type="text" defalutvalue=1 id="product_count">
+							<input type="text" id="product_count" v-model="count">
 							<span>个</span>
 						</div>
 						<div class="product_else">
@@ -65,7 +65,7 @@
 						</div>
 						<div class="product_buy">
 							<button class="buy_now">立即购买</button>
-							<button class="add_cart">加入购物车</button>
+							<button class="add_cart" @click="addcart()">加入购物车</button>
 						</div>
 					</div>
 				</div>
@@ -116,20 +116,20 @@
     </div>
     <!-- 提示弹出框 -->
     <div>
-    		<div class="warning_login">
-			<div class="warning_close">关闭</div>
+    	<div class="warning_login" v-if="needlogin">
+			<div class="warning_close" @click="closeWarn()">关闭</div>
 			<div class="warning_main">你还没有登陆哦！</div>
 			<div class="warning_footer">
-				<a href="login.HTML" target="_blank" class="warning_btn">我去登陆</a>
-				<a href="register.HTML" target="_blank" class="warning_btn">我去注册</a>
+				<router-link :to="{ name: 'login'}" class="warning_btn">我去登陆</router-link>
+				<router-link :to="{ name: 'register'}" class="warning_btn">我去注册</router-link>
 			</div>
 		</div>
-		<div class="warning_cart">
-			<div class="warning_close">关闭</div>
+		<div class="warning_cart" v-if="addcartsuccess">
+			<div class="warning_close" @click="closeWarn()">关闭</div>
 			<div class="warning_main">加入购物车成功</div>
 			<div class="warning_footer">
-				<a href="javascript:;" class="keep_shopping">继续购物</a>
-				<a href="shopping_cart.html" target="_self" class="warning_btn">现在结算</a>
+				<a href="javascript:;" class="keep_shopping" @click="closeWarn()">继续购物</a>
+				<router-link :to="{ name: 'cart'}" class="warning_btn">现在结算</router-link>
 			</div>
 		</div>
     </div>
@@ -137,38 +137,69 @@
 </template>
 
 <script>
+import store from '@/store/store';
   export default{
       data(){
           return{
-              topSales:[],
-			  maybe:[],
-			  product:{}
+              topSales:[],//销量数组
+			  maybe:[],//同类型数组
+			  product:{},//产品详情
+			  count:1,//数量
+			  needlogin:false,//提示需要登录
+			  addcartsuccess:false//提示加入购物车成功
           }
       },
 	  mounted(){
 		  this.getproduct();
 		  this.gettopsales();
-		  this.maybelike();
 	  },
 	  methods:{
-		  getproduct(){
+		  getproduct(){//获得产品详情
 			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/getproductbyid.php?pid='+this.$route.query.pid)
 			  .then(function(res){
 				  this.product=res.data;
+				  this.count=1;
+				  this.maybelike();
 			  })
 		  },
-		  gettopsales(){
+		  gettopsales(){//销量列表
 			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/top_ten.php')
 			  .then(function(res){
 				  this.topSales=res.data;
 			  })
 		  },
-		  maybelike(){
+		  maybelike(){//同类型推荐
 			this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/maybelike.php?pid='+this.$route.query.pid)
 			.then(function(res){
 				this.maybe=res.data;
-				console.log(res.data);
 			})
+		  },
+		  addcart(){
+			  if(this.$store.state.islogin){
+				  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
+				  .then((res)=>{
+					  if(res.data==1){
+						  this.addcartsuccess=true;
+					  }else{
+						  alert('加入购物车失败')
+					  }
+				  })
+			  }
+			// 	this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
+			// 	.then((res)=>{
+			// 		  if(res.data==1){
+			// 			  this.addcartsuccess=true;
+			// 		  }else{
+			// 			  alert('加入购物车失败')
+			// 		  }
+			// 	})
+			//   }else{
+			// 	  this.needlogin=true;
+			//   }
+		  },
+		  closeWarn(){//关闭提示
+			  this.addcartsuccess=false;
+			  this.needlogin=false;
 		  }
 	  },
 	  watch:{
@@ -356,7 +387,6 @@
 	color: #585858;
 	margin-right: 10px;
 	cursor: pointer;
-	height: 32px;
 }
 .tase_li.active{
 	color: #ff5417;
@@ -546,7 +576,7 @@ margin-top: 10px;
 	overflow: hidden;
 	margin: 10px 0px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: left;
 	padding: 0px 15px;
 }
 .product_footer_li{
@@ -577,13 +607,12 @@ margin-top: 10px;
 	top: 40%;
 	left: 31%;
 	width: 40%;
-	height: 0%;
+	height: 200px;
 	border: 1px solid black;
 	margin: 0 auto;
 	background: #fff;
 	border-radius: 10%;
 	padding-top: 1%;
-	display: none;
 }
 .warning_close{
 	float: right;
@@ -625,13 +654,12 @@ margin-top: 10px;
 	top: 40%;
 	left: 31%;
 	width: 40%;
-	height: 0%;
+	height: 200px;
 	border: 1px solid black;
 	margin: 0 auto;
 	background: #fff;
 	border-radius: 10%;
 	padding-top: 1%;
-	display: none;
 }
 
 </style>
