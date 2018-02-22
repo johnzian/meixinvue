@@ -71,7 +71,7 @@
 			  .then((res)=>{
 				  if(res.data!=0){
 					  alert('登录成功');
-					  this.userinfo.uid=res.data.uid;
+					  this.userinfo.uid=res.data;
 					  this.userinfo.uphone=this.username;
 					  this.$store.commit('login',this.userinfo);
 					  this.setSession(res.data.uid,this.username);
@@ -135,7 +135,7 @@
 							.then(function(res){
 								if(res.data!=0){
 									alert('登录成功');
-									this.userinfo.uid=res.data.uid;
+									this.userinfo.uid=res.data;
 									this.userinfo.uphone=this.phone;
 									this.$store.commit('login',this.userinfo);
 									this.setSession(res.data.uid,this.phone);
@@ -146,7 +146,7 @@
 							this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_register.php?uphone='+this.phone)
 							.then(function(res){
 									alert('注册成功并已登陆，密码为你的手机号');
-									this.userinfo.uid=res.data.uid;
+									this.userinfo.uid=res.data;
 									this.userinfo.uphone=this.phone;
 									this.$store.commit('login',this.userinfo);
 									this.setSession(res.data.uid,this.phone);

@@ -149,7 +149,7 @@ function userupdate(){
 function useraddress(){
 	global $conn;
 	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	if($uid){
 		$sql="SELECT aid,receive,province,city,block,phone,homenumber,postcode,details FROM `mx_address` WHERE uid='$uid'";
 		$result=mysqli_query($conn,$sql);

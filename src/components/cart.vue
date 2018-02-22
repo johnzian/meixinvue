@@ -14,17 +14,17 @@
         </div>
         <div class="cart_list">
             <ul class="cart_list_ul">
-                <li class="cart_list_li" v-for="items in cartlist" :key="items">
+                <li class="cart_list_li" v-for="items in cartlist" :key="items.cid">
                     <div class="select"><input type="checkbox" class="cart_select"/></div>
-                    <div class="pic"><img src="../assets/img/220_201707302319317532290.png" alt="" class="product_pic"/></div>
+                    <div class="pic"><img :src="'../../static/'+items.simg" alt="" class="product_pic"/></div>
                     <div class="info">
-                        <p class="product_name">熊孩子</p><span class="can_take">支持自提</span>
-                        <p class="more_info">重量：1磅/ 口味：新鲜芒果肉包裹法国芒果慕斯、原味海绵蛋糕、芒果流心夹心/</p>
+                        <p class="product_name">{{items.title}}</p><span class="can_take">支持自提</span>
+                        <p class="more_info">重量：{{items.pound}}磅/ 口味：{{items.taste}}/</p>
                     </div>
-                    <div class="price"><span class="yuan">¥</span><span class="product_price">236.00</span></div>
+                    <div class="price"><span class="yuan">¥</span><span class="product_price">{{items.nprice * items.count}}</span></div>
                     <div class="count">
                         <a href="" class="less">-</a>
-                        <input type="text" class="product_count" value="1"/>
+                        <input type="text" class="product_count" :value="items.count"/>
                         <a href="" class="more">+</a>
                     </div>
                     <div class="control"><a href="" class="product_delete">删除</a></div>
@@ -32,15 +32,15 @@
 
             </ul>
             <div class="user_address">
-                <div class="address_inside">
+                <div class="address_inside" v-for="items in addresslist" :key="items.aid">
                     <input type="radio" name="which_address" checked/>
                     <span class="aid">地址id</span>
-                    <span>猫猫</span>
-                    <span>广东省广州市海珠区</span>
-                    <span>手机号码：13711163602</span>
-                    <span>固定号码：84230507</span>
-                    <span>邮政编号：510220</span>
-                    <span>详细地址：广东省广州市海珠区前进路激励下到56号32141房</span>
+                    <span>{{items.receiver}}</span>
+                    <span>{{items.province+items.city+items.block}}</span>
+                    <span>手机号码：{{items.phone}}</span>
+                    <span>固定号码：{{items.homenumber}}</span>
+                    <span>邮政编号：{{items.postcode}}</span>
+                    <span>详细地址：{{items.details}}</span>
                 </div>
             </div>
             <div class="total">
@@ -57,10 +57,39 @@
 </template>
 
 <script>
+import store from '@/store/store'
   export default{
       data:function(){
           return{
-              cartlist:[1,2,3,4,5]
+              cartlist:[],//购物车列表
+              addresslist:[]
+          }
+      },
+      mounted(){
+          if(this.$store.state.userinfo.uid!=null){//如果登录了
+              this.getcartlist();
+              this.getaddress();
+          }else{//如果没有登录
+              alert('请先登录');
+              this.$router.push({name: 'login'});
+          }
+      },
+      methods:{
+          //获取购物车列表
+          getcartlist(){
+              this.cartlist=[];
+              this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/showcart.php?uid='+this.$store.state.userinfo.uid)
+              .then((res)=>{
+                  this.cartlist=res.data;
+              })
+          },
+          //获取用户送货地址
+          getaddress(){
+            this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/user_address.php?uid='+this.$store.state.userinfo.uid)
+            .then((res)=>{
+                this.addresslist=res.data;
+                console.log(this.addresslist);
+            })
           }
       }
   }

@@ -21,7 +21,7 @@
 			<router-link :to="{ name: 'index'}"><img src="../assets/img/201707181448325969790.jpg" id="logo"></router-link>
 		</div>
 		<div id="shoppingcart">
-			<router-link :to="{ name: 'cart',params:{uid:$store.state.userinfo.uid}}"><span>购物车<span class="cart_count">{{$store.state.userinfo.cartcount}}</span>件</span></router-link>
+			<router-link :to="{ name: 'cart' }"><span>购物车<span class="cart_count">{{$store.state.userinfo.cartcount}}</span>件</span></router-link>
 		</div>
 		<div id="search">
 			<input type="text" placeholder="输入关键字" id="input_serach" v-model="keyword">
@@ -68,16 +68,17 @@
 		  },
 		  //检测是否登录，用于解决vuex刷新丢失问题
 		  checklogin(){
-			  console.log(sessionStorage.getItem("uphone"))
-			  if(sessionStorage.getItem("uid") && sessionStorage.getItem("uphone")){
+			  if(sessionStorage.getItem("uid") && sessionStorage.getItem("uphone")){//如果session里面的uid和uphone存在
+			  //把session的uid和phone存进变量
 				this.userinfo.uid = sessionStorage.getItem("uid");
 				this.userinfo.uphone = sessionStorage.getItem("uphone");
+				//然后提交到vuex里面
 				this.$store.commit('login',this.userinfo);
+				//最后查一次购物车的数量
 				this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
 				.then((res)=>{
 					this.userinfo.cartcount=parseInt(res.data);
 					this.$store.commit('checkcart',this.userinfo.cartcount);
-					this.$router.push({name: 'index'});
 				})
 			  }
 		  }

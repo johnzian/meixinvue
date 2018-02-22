@@ -17,7 +17,7 @@ function addcart(){
 function showcart(){
 	global $conn;
 	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	if($uid){
 		$sql="	SELECT mx_cart.pid,mx_cart.count,mx_cart.cid,mx_cart.bless,mx_product.title,mx_product.pound,mx_product.taste,mx_product.nprice,mx_product_pic.simg 
 					FROM mx_cart,mx_product,mx_product_pic 
