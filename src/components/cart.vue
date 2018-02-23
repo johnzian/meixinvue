@@ -5,7 +5,7 @@
         <div class="cart_title">蛋糕自提</div>
         <div class="cart_list_title">
             <div class="chose_all">
-                <input type="checkbox" class="select_all">全选
+                <input type="checkbox" class="select_all" @click="selectall()" v-model="checkall">全选
             </div>
             <div class="title_product">商品</div>
             <div class="title_price">单价（元）</div>
@@ -15,7 +15,7 @@
         <div class="cart_list">
             <ul class="cart_list_ul">
                 <li class="cart_list_li" v-for="items in cartlist" :key="items.cid">
-                    <div class="select"><input type="checkbox" class="cart_select"/></div>
+                    <div class="select"><input type="checkbox" class="cart_select"  v-model="checkmodel" :value="items.cid"/></div>
                     <div class="pic"><img :src="'../../static/'+items.simg" alt="" class="product_pic"/></div>
                     <div class="info">
                         <p class="product_name">{{items.title}}</p><span class="can_take">支持自提</span>
@@ -33,7 +33,7 @@
             </ul>
             <div class="user_address">
                 <div class="address_inside" v-for="items in addresslist" :key="items.aid">
-                    <input type="radio" name="which_address" checked/>
+                    <input type="radio" name="which_address"/>
                     <span class="aid">地址id</span>
                     <span>{{items.receiver}}</span>
                     <span>{{items.province+items.city+items.block}}</span>
@@ -62,7 +62,9 @@ import store from '@/store/store'
       data:function(){
           return{
               cartlist:[],//购物车列表
-              addresslist:[]
+              addresslist:[],//收货地址列表
+              checkall:false,//是否全选按钮
+              checkmodel:[]//全选按钮数组
           }
       },
       mounted(){
@@ -81,6 +83,7 @@ import store from '@/store/store'
               this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/showcart.php?uid='+this.$store.state.userinfo.uid)
               .then((res)=>{
                   this.cartlist=res.data;
+                  console.log(res.data);
               })
           },
           //获取用户送货地址
@@ -88,8 +91,19 @@ import store from '@/store/store'
             this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/user_address.php?uid='+this.$store.state.userinfo.uid)
             .then((res)=>{
                 this.addresslist=res.data;
-                console.log(this.addresslist);
             })
+          },
+          //全选按钮
+          selectall(){
+              this.checkall=!this.checkall;//只是把变量从true to false
+              this.checkmodel=[];//清空全选按钮
+              if(this.checkall==true){//当全选按钮为真的时候
+              //函数就要把cartlist里面的每一个cid放进去checkmodel里面
+              //同时因为checkmodel是绑定了，checkmodel数组里面拥有了这个独特的cid，就会使那一个checkbox变为真
+                  this.cartlist.forEach((value,index)=>{
+                      this.checkmodel.push(value.cid)
+                  })
+              }
           }
       }
   }
