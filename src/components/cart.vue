@@ -15,7 +15,7 @@
         <div class="cart_list">
             <ul class="cart_list_ul">
                 <li class="cart_list_li" v-for="items in cartlist" :key="items.cid">
-                    <div class="select"><input type="checkbox" class="cart_select"  v-model="checkmodel" :value="items.cid"/></div>
+                    <div class="select"><input type="checkbox" class="cart_select"  v-model="checkmodel" :value="items"/></div>
                     <div class="pic"><img :src="'../../static/'+items.simg" alt="" class="product_pic"/></div>
                     <div class="info">
                         <p class="product_name">{{items.title}}</p><span class="can_take">支持自提</span>
@@ -44,11 +44,11 @@
                 </div>
             </div>
             <div class="total">
-                <span>已选择 <span class="howmany_select">0</span> 件商品</span>
-                <button class="buy_now">去结算</button>
+                <span>已选择 <span class="howmany_select">{{total}}</span> 件商品</span>
+                <button class="buy_now" @click="buyproduct()">去结算</button>
                 <div class="totalprice">
                     合计（不含运费）：
-                    <span class="total_num">¥<span class="money">0</span></span>
+                    <span class="total_num">¥<span class="money">{{totalprice}}</span></span>
                 </div>
             </div>
         </div>
@@ -64,7 +64,9 @@ import store from '@/store/store'
               cartlist:[],//购物车列表
               addresslist:[],//收货地址列表
               checkall:false,//是否全选按钮
-              checkmodel:[]//全选按钮数组
+              checkmodel:[],//全选按钮数组
+              total:0,//商品数量
+              totalprice:0,//商品总价
           }
       },
       mounted(){
@@ -98,13 +100,52 @@ import store from '@/store/store'
               this.checkall=!this.checkall;//只是把变量从true to false
               this.checkmodel=[];//清空全选按钮
               if(this.checkall==true){//当全选按钮为真的时候
-              //函数就要把cartlist里面的每一个cid放进去checkmodel里面
-              //同时因为checkmodel是绑定了，checkmodel数组里面拥有了这个独特的cid，就会使那一个checkbox变为真
+              //函数就要把cartlist里面的每一个商品放进去checkmodel里面
+              //同时因为checkmodel是绑定了，checkmodel数组里面拥有了这个独特的商品，就会使那一个checkbox变为真
                   this.cartlist.forEach((value,index)=>{
-                      this.checkmodel.push(value.cid)
+                      this.checkmodel.push(value)
                   })
               }
+          },
+          //购买功能
+          buyproduct(){
+              console.log(this.checkmodel);
+              this.totalmoney;
           }
+      },
+      computed:{
+        //   totalmoney:function(){
+        //         var totalprice = 0;
+        //         for(var i in this.checkmodel){
+        //             totalprice += this.checkmodel[i].nprice * this.checkmodel[i].count;
+        //         }
+        //         return totalprice;
+        //   },
+        //两种方法计算总价，一种上面的，可以直接点击就出，一种下面的，通过深度watch checkmodel来实行函数
+         totalmoney:function(){
+            this.totalprice=0;
+            this.total=this.checkmodel.length; //商品总量计算
+            for(var i in this.checkmodel){
+                //计算商品总价
+                this.totalprice += this.checkmodel[i].nprice * this.checkmodel[i].count;
+            }
+          }
+      },
+      watch:{
+          //深度监听checkmodel是否改变
+          checkmodel:{
+              handler(){
+                //深度监听全选按钮的更改
+                if(this.checkmodel.length==this.cartlist.length){
+                    this.checkall=true;
+                }else{
+                    this.checkall=false;
+                };
+                //每一次checkmodel改变都会检测是否全选，还有执行计算总价的函数
+                this.totalmoney;
+              },
+              deep : true
+          },
       }
   }
 </script>

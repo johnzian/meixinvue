@@ -74,7 +74,7 @@
 					  this.userinfo.uid=res.data;
 					  this.userinfo.uphone=this.username;
 					  this.$store.commit('login',this.userinfo);
-					  this.setSession(res.data.uid,this.username);
+					  this.setSession(res.data,this.username);
 					//   console.log(this.$store.state.userinfo);
 					this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
 					.then((res)=>{
