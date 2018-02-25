@@ -14,7 +14,7 @@
         </div>
         <div class="cart_list">
             <ul class="cart_list_ul">
-                <li class="cart_list_li" v-for="items in cartlist" :key="items.cid">
+                <li class="cart_list_li" v-for="(items,index) in cartlist" :key="items.cid">
                     <div class="select"><input type="checkbox" class="cart_select"  v-model="checkmodel" :value="items"/></div>
                     <div class="pic"><img :src="'../../static/'+items.simg" alt="" class="product_pic"/></div>
                     <div class="info">
@@ -23,17 +23,17 @@
                     </div>
                     <div class="price"><span class="yuan">¥</span><span class="product_price">{{items.nprice * items.count}}</span></div>
                     <div class="count">
-                        <a href="" class="less">-</a>
+                        <a href="javascript:;" class="less" @click="lesscount(index)"> - </a>
                         <input type="text" class="product_count" :value="items.count"/>
-                        <a href="" class="more">+</a>
+                        <a href="javascript:;" class="more" @click="addcount(index)"> + </a>
                     </div>
-                    <div class="control"><a href="" class="product_delete">删除</a></div>
+                    <div class="control"><a href="javascript:;" class="product_delete" @click="deleteproduct(items.cid)">删除</a></div>
                 </li>
 
             </ul>
             <div class="user_address">
                 <div class="address_inside" v-for="items in addresslist" :key="items.aid">
-                    <input type="radio" name="which_address"/>
+                    <input type="radio" name="which_address" v-model="selectAddress" :value="items.aid"/>
                     <span class="aid">地址id</span>
                     <span>{{items.receiver}}</span>
                     <span>{{items.province+items.city+items.block}}</span>
@@ -67,6 +67,7 @@ import store from '@/store/store'
               checkmodel:[],//全选按钮数组
               total:0,//商品数量
               totalprice:0,//商品总价
+              selectAddress:0,//用户选择的地址id
           }
       },
       mounted(){
@@ -82,10 +83,11 @@ import store from '@/store/store'
           //获取购物车列表
           getcartlist(){
               this.cartlist=[];
+              this.checkmodel=[];
               this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/showcart.php?uid='+this.$store.state.userinfo.uid)
               .then((res)=>{
                   this.cartlist=res.data;
-                  console.log(res.data);
+                  this.$store.commit('checkcart',res.data.length);//更新头部购物车数量
               })
           },
           //获取用户送货地址
@@ -109,9 +111,38 @@ import store from '@/store/store'
           },
           //购买功能
           buyproduct(){
-              console.log(this.checkmodel);
-              this.totalmoney;
-          }
+              if(this.selectAddress!=0){//如果用户选择了地址
+                  for(var i = 0; i < this.checkmodel.length; i++){
+                    this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/add_order.php?uid='+this.$store.state.userinfo.uid+'&pid='+this.checkmodel[i].pid+'&count='+this.checkmodel[i].count+'&aid='+this.selectAddress+'&cid='+this.checkmodel[i].cid)
+                  }
+                  alert('提交成功');
+                  this.getcartlist();
+              }else{
+                  alert('请选择送货地址或者去个人中心填一个')
+              }
+          },
+          //删除购物车
+          deleteproduct(cid){
+              this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/delete_cart.php?uid='+this.$store.state.userinfo.uid+'&cid='+cid)
+              .then((res)=>{
+                  if(res.data.code==200){
+                      alert('删除成功');
+                      this.getcartlist();
+                  }else if(res.data.code==100){
+                      alert('删除失败')
+                  }
+              })
+          },
+          //商品数量增加
+          addcount(i){
+              this.cartlist[i].count++;
+          },
+          //商品数量减少
+          lesscount(i){
+              if(this.cartlist[i].count>1){
+                  this.cartlist[i].count--;
+              }
+          },
       },
       computed:{
         //   totalmoney:function(){

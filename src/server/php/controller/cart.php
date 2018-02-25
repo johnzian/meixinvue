@@ -32,14 +32,16 @@ function showcart(){
 function deletecart(){
 	global $conn;
 	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	@$cid=$_REQUEST["cid"];
 	if($uid&&$cid){
 		$sql="DELETE  FROM mx_cart where cid='$cid' AND uid='$uid'";
 		mysqli_query($conn,$sql);
-		echo 1;
+		$output=array("code"=>200);
+		echo json_encode($output);
 	}else{
-		echo 0;
+		$output=array("code"=>100);
+		echo json_encode($output);
 	}
 }
 function useraddress(){
@@ -60,7 +62,7 @@ function useraddress(){
 function addorder(){
 	global $conn;
 	session_start();
-	@$uid=$_SESSION["uid"];
+	@$uid=$_REQUEST["uid"];
 	@$pid=$_REQUEST["pid"];
 	@$aid=$_REQUEST["aid"];
 	@$count=$_REQUEST["count"];
@@ -72,9 +74,11 @@ function addorder(){
 		if($result){
 			$sql="DELETE  FROM mx_cart where cid='$cid' AND uid='$uid'";
 			mysqli_query($conn,$sql);
-			echo 1;
+			$output=array("code"=>200);
+			echo json_encode($output);
 		}else{
-			echo 0;
+			$output=array("code"=>100);
+			echo json_encode($output);
 		}
 	}
 }

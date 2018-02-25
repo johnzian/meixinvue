@@ -179,11 +179,15 @@ import store from '@/store/store';
 				  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
 				  .then((res)=>{
 					  if(res.data==1){
-						  this.addcartsuccess=true;
+						this.addcartsuccess=true;
+						//更新头部购物车数量
+						this.$store.commit('checkcart',(this.$store.state.userinfo.cartcount++));
 					  }else{
 						  alert('加入购物车失败')
 					  }
 				  })
+			  }else{
+				  this.needlogin=true;
 			  }
 			// 	this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
 			// 	.then((res)=>{
