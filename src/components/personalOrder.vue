@@ -11,13 +11,13 @@
                 <span>下单时间</span>
                 <span>当前状态</span>
             </li>
-            <li class="order_li" v-for="items in orderlist" :key="items">
-                <img src="${obj.simg}" alt="">
-                <span class="product_title">${obj.title}</span>
-                <span class="product_price">¥${obj.nprice}</span>
-                <span class="product_count">${obj.count}个</span>
-                <span class="order_time">${obj.count}</span>
-                <span class="order_state">${obj.status}</span>
+            <li class="order_li" v-for="(items,index) in orderlist" :key="index">
+                <img :src="'../../static/'+items.simg" alt="">
+                <span class="product_title">{{items.title}}</span>
+                <span class="product_price">¥{{items.nprice}}</span>
+                <span class="product_count">{{items.count}}个</span>
+                <span class="order_time">{{items.order_time}}</span>
+                <span class="order_state">{{items.status}}</span>
             </li>
         </ul>
     </div>
@@ -28,8 +28,21 @@
   export default{
     data:function(){
       return{
-        orderlist:[1,2,3,4,5]
+        orderlist:[]
       }
+    },
+    methods:{
+      getOrder(){
+        this.orderlist=[];
+        this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/get_order.php')
+        .then((res)=>{
+          console.log(res)
+          this.orderlist=res.data;
+        })
+      }
+    },
+    mounted(){
+      this.getOrder();
     }
   }
 </script>

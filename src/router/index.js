@@ -53,7 +53,6 @@ export default new Router({
     },
     {
       path: '/personalcenter',
-      name: 'personalcenter',
       component: personalCenter,
       children:[
         {
@@ -71,11 +70,6 @@ export default new Router({
           name: 'personalorder',
           component: personalOrder,
         },
-        {
-          path: '/personaldetails',
-          name: 'personaldetails',
-          component: personalDetails,
-        }
       ]
     },
   ],

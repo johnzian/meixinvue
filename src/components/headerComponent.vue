@@ -10,7 +10,7 @@
 			<li><div id="weixin">微信商城<img src="../assets/img/jiantou_03.png"></div></li>
 		</ul>
 		<ul id="tools_right">
-			<li class="tool_right"><router-link :to="{ name: 'personalcenter'}">个人中心</router-link></li>
+			<li class="tool_right"><router-link :to="{ name: 'personaldetails'}">个人中心</router-link></li>
 			<li class="tool_right"><a href="MeiXinphone/Main.html">响应式VUE单页面版</a></li>
 			<li class="tool_right">分享到：</li>
 			<li class="tool_right"><a href="javascript:;">切换繁体</a></li>
