@@ -2,7 +2,8 @@
 require_once("../init.php");
 function addcart(){
 	global $conn;
-	@$uid=$_REQUEST["uid"];
+	session_start();
+	@$uid=$_SESSION["uid"];
 	@$pid=$_REQUEST["pid"];
 	@$count=$_REQUEST["count"];
 	@$bless=$_REQUEST["bless"];
@@ -17,7 +18,7 @@ function addcart(){
 function showcart(){
 	global $conn;
 	session_start();
-	@$uid=$_REQUEST["uid"];
+	@$uid=$_SESSION["uid"];
 	if($uid){
 		$sql="	SELECT mx_cart.pid,mx_cart.count,mx_cart.cid,mx_cart.bless,mx_product.title,mx_product.pound,mx_product.taste,mx_product.nprice,mx_product_pic.simg 
 					FROM mx_cart,mx_product,mx_product_pic 
@@ -32,7 +33,7 @@ function showcart(){
 function deletecart(){
 	global $conn;
 	session_start();
-	@$uid=$_REQUEST["uid"];
+	@$uid=$_SESSION["uid"];
 	@$cid=$_REQUEST["cid"];
 	if($uid&&$cid){
 		$sql="DELETE  FROM mx_cart where cid='$cid' AND uid='$uid'";
@@ -62,7 +63,7 @@ function useraddress(){
 function addorder(){
 	global $conn;
 	session_start();
-	@$uid=$_REQUEST["uid"];
+	@$uid=$_SESSION["uid"];
 	@$pid=$_REQUEST["pid"];
 	@$aid=$_REQUEST["aid"];
 	@$count=$_REQUEST["count"];

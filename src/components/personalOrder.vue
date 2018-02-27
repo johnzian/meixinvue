@@ -36,7 +36,6 @@
         this.orderlist=[];
         this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/get_order.php')
         .then((res)=>{
-          console.log(res)
           this.orderlist=res.data;
         })
       }

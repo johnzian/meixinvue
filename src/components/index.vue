@@ -23,7 +23,7 @@
 
 			<!-- 公告 -->
 			<div class="gonggao">
-                <img src="../assets/img/20170919113124_8590.jpg" alt="">
+                <img src="'../../static/'img/20170919113124_8590.jpg" alt="">
             </div>
 
 			<!-- 一楼 -->
@@ -37,20 +37,20 @@
 			<!-- 固定导航栏 -->
 			<div class="nav" v-show="showscroll">
 				<div class="ico">
-					<a href="personnal_center.html"><img src="../assets/img/icon_03.png" alt=""></a>
+					<a href="personnal_center.html"><img src="'../../static/'img/icon_03.png" alt=""></a>
 					<div class="abosulte_ico"><a href="personnal_center.html">用户中心</a></div>
 				</div>
 				<div class="ico">
-					<a href="shopping_cart.html"><img src="../assets/img/icon_06.png" alt=""></a>
+					<a href="shopping_cart.html"><img src="'../../static/'img/icon_06.png" alt=""></a>
 					<div class="abosulte_ico"><a href="shopping_cart.html">购物车</a></div>
 				</div>
 				<div class="ico" style="border:none">
-					<a href="javascript:;"><img src="../assets/img/icon_08.png" alt=""></a>
+					<a href="javascript:;"><img src="'../../static/'img/icon_08.png" alt=""></a>
 					<div class="abosulte_ico"><a href="javascript:;">优惠券</a></div>
 				</div>
 			</div>
 			<div class="nav_goheader" v-show="showscroll" @click="jumpto(0)">
-				<a href="javascript:;"><img src="../assets/img/jiantou.png" alt=""></a>
+				<a href="javascript:;"><img src="'../../static/'img/jiantou.png" alt=""></a>
 				<div class="abosulte_header"><a href="javascript:;">顶部</a></div>
 			</div>
 
