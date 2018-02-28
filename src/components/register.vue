@@ -183,7 +183,7 @@
 	border:0px;
 	line-height:40px;
 	margin-top:15px;
-	background-image:url('../assets/img/zhuce_btn.jpg');
+	background-image:url('../../static/img/zhuce_btn.jpg');
 	cursor:pointer;
 }
 </style>

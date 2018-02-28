@@ -165,7 +165,7 @@
 #shoppingcart{
 	width:140px;
 	height:38px;
-	background-image:url(../assets/img/b4622be217307ffa82f706f2b6e270ed_cart-140-34.jpg);
+	background-image:url(../../static/img/b4622be217307ffa82f706f2b6e270ed_cart-140-34.jpg);
 	border:1px solid #dfdfdf;
 	margin-left:50px;
 	margin-top:27px;

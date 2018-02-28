@@ -16,7 +16,7 @@
 							<div class="floatbox"></div>
 						</div>
 						<div class="bigbox">
-							<img class="bigpic" src="../assets/img/220_201611211511533145590.jpg" alt="">
+							<img class="bigpic" src="../../static/img/220_201611211511533145590.jpg" alt="">
 						</div>
 						<div>
 							<ul class="productpic_list">
@@ -94,7 +94,7 @@
 							<div class="product_details_title_inside">商品详情</div>
 						</div>
 						<div class="product_details_pic">
-                            <img src="../assets/img/220_201611211511533145590.jpg" alt="">
+                            <img src="../../static/img/220_201611211511533145590.jpg" alt="">
                             <p class="pic_warning">*本商品不适用七日无理由退货</p>
 						</div>
 					</div>

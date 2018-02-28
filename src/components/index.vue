@@ -124,7 +124,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 .bigpic{
 	width:472px;
 	height:472px;
-	background-image:url(../assets/img/20170831235812_2496.png);
+	background-image:url(../../static/img/20170831235812_2496.png);
 	position:relative;
 }
 .bigpic:hover{
@@ -177,27 +177,27 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 
 .pic1{
 	float:left;
-	background-image:url(../assets/img/20170410144525_7368.png);
+	background-image:url(../../static/img/20170410144525_7368.png);
 }
 .pic2{
 	float:left;
-	background-image:url(../assets/img/20170405181353_3197.png);
+	background-image:url(../../static/img/20170405181353_3197.png);
 }
 .pic3{
 	float:left;
-	background-image:url(../assets/img/20170405181149_5533.png);
+	background-image:url(../../static/img/20170405181149_5533.png);
 }
 .pic4{
 	float:left;
-	background-image:url(../assets/img/20170405181408_8042.png);
+	background-image:url(../../static/img/20170405181408_8042.png);
 }
 .pic5{
 	float:left;
-	background-image:url(../assets/img/20170405181422_5386.jpg);
+	background-image:url(../../static/img/20170405181422_5386.jpg);
 }
 .pic6{
 	float:left;
-	background-image:url(../assets/img/20170405181435_1481.jpg);
+	background-image:url(../../static/img/20170405181435_1481.jpg);
 }
 
 /*公告*/

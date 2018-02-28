@@ -194,7 +194,7 @@
 .main{
 	width:101%;
 	height:664px;
-	background-image:url('../assets/img/20170411152505_0239.jpg');
+	background-image:url('../../static/img/20170411152505_0239.jpg');
 	background-repeat:no-repeat;
 	margin-left:-10px;
 	padding-top:50px;
