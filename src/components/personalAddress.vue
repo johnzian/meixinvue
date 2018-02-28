@@ -6,7 +6,7 @@
             <ul class="user_address_ul">
               <li class="new_user_address">
                     <div>
-                        收件人姓名：<input type="text" class="new_reciver">
+                        收件人姓名：<input type="text" class="new_reciver" v-model="receiver">
                     </div>
                     <div>
                         省份：
@@ -26,16 +26,16 @@
                         </select>
                     </div>
                     <div>
-                        手机：<input type="text" class="new_phone">
+                        手机：<input type="text" class="new_phone" v-model="phone">
                     </div>
                     <div>
-                        固定电话：<input type="text" class="new_homenumber">
+                        固定电话：<input type="text" class="new_homenumber" v-model="homenumber">
                     </div>
                     <div>
-                        邮政编号：<input type="text" class="new_postcode">
+                        邮政编号：<input type="text" class="new_postcode" v-model="postcode">
                     </div>
                     <div>
-                        详细地址：<input type="text" class="new_address_details">
+                        详细地址：<input type="text" class="new_address_details" v-model="details">
                     </div>
                     <div>
                         <input type="button" class="address_btn" value="确认添加" @click="addAddress">
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+
   export default{
     data(){
       return{
@@ -66,11 +67,17 @@
         province:'请选择',//选择的省份
         city:'请选择',//选择的城市
         block:'请选择',//选择的街区
+        receiver:'',//收件人名字
+        homenumber:'',//家庭电话
+        phone:'',//电话号码
+        postcode:'',//邮政编码
+        details:''//详细地址
       }
     },
     methods:{
         //获取用户地址
         getaddress(){
+            this.addresslist;
             this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/user_address.php')
             .then((res)=>{
                 this.addresslist=res.data;
@@ -106,8 +113,33 @@
         },
         //添加地址
         addAddress(){
-            console.log(this.province);
-            this.updateCity();
+            this.$axios({
+                url:'http://127.0.0.1/meixinvue/src/server/php/route/add_address.php',
+                method:'post',
+                data:{
+                receiver : this.receiver,
+                province : this.province,
+                city : this.city,
+                block : this.block,
+                phone : this.phone,
+                homenumber : this.homenumber,
+                postcode : this.postcode,
+                details : this.details,
+                },
+                headers:{
+                    'content-type' : 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                // transformRequest: [function (data) {
+                //     data=qs.stringify(data);//把axios的json格式字符转为字符串
+                //     return data;
+                // }]
+            })
+            .then((res)=>{
+                if(res.data==1){
+                    alert('增加成功');
+                    this.getaddress();
+                }
+            })
         }
     },
     mounted(){
