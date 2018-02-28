@@ -23,7 +23,7 @@
 
 			<!-- 公告 -->
 			<div class="gonggao">
-                <img src="'../../static/'img/20170919113124_8590.jpg" alt="">
+                <img src="http://www.johnzian.cn/img/20170919113124_8590.jpg" alt="">
             </div>
 
 			<!-- 一楼 -->
@@ -37,20 +37,20 @@
 			<!-- 固定导航栏 -->
 			<div class="nav" v-show="showscroll">
 				<div class="ico">
-					<a href="personnal_center.html"><img src="'../../static/'img/icon_03.png" alt=""></a>
+					<a href="personnal_center.html"><img src="http://www.johnzian.cn/img/icon_03.png" alt=""></a>
 					<div class="abosulte_ico"><a href="personnal_center.html">用户中心</a></div>
 				</div>
 				<div class="ico">
-					<a href="shopping_cart.html"><img src="'../../static/'img/icon_06.png" alt=""></a>
+					<a href="shopping_cart.html"><img src="http://www.johnzian.cn/img/icon_06.png" alt=""></a>
 					<div class="abosulte_ico"><a href="shopping_cart.html">购物车</a></div>
 				</div>
 				<div class="ico" style="border:none">
-					<a href="javascript:;"><img src="'../../static/'img/icon_08.png" alt=""></a>
+					<a href="javascript:;"><img src="http://www.johnzian.cn/img/icon_08.png" alt=""></a>
 					<div class="abosulte_ico"><a href="javascript:;">优惠券</a></div>
 				</div>
 			</div>
 			<div class="nav_goheader" v-show="showscroll" @click="jumpto(0)">
-				<a href="javascript:;"><img src="'../../static/'img/jiantou.png" alt=""></a>
+				<a href="javascript:;"><img src="http://www.johnzian.cn/img/jiantou.png" alt=""></a>
 				<div class="abosulte_header"><a href="javascript:;">顶部</a></div>
 			</div>
 
@@ -65,7 +65,7 @@
 			<!-- 返回顶部 -->
 			<div class="goback">
 				<a href="javascript:;" @click="jumpto(0)">
-					<img src="../../static/img/20151113153309_2414.png" alt="">
+					<img src="http://www.johnzian.cn/img/20151113153309_2414.png" alt="">
 					<p>返回顶部</p>
 				</a>
 			</div>
@@ -124,7 +124,7 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 .bigpic{
 	width:472px;
 	height:472px;
-	background-image:url(../../static/img/20170831235812_2496.png);
+	background-image:url(http://www.johnzian.cn/img/20170831235812_2496.png);
 	position:relative;
 }
 .bigpic:hover{
@@ -177,27 +177,27 @@ import indexFooterRandom from '@/components/indexFooterRandom';
 
 .pic1{
 	float:left;
-	background-image:url(../../static/img/20170410144525_7368.png);
+	background-image:url(http://www.johnzian.cn/img/20170410144525_7368.png);
 }
 .pic2{
 	float:left;
-	background-image:url(../../static/img/20170405181353_3197.png);
+	background-image:url(http://www.johnzian.cn/img/20170405181353_3197.png);
 }
 .pic3{
 	float:left;
-	background-image:url(../../static/img/20170405181149_5533.png);
+	background-image:url(http://www.johnzian.cn/img/20170405181149_5533.png);
 }
 .pic4{
 	float:left;
-	background-image:url(../../static/img/20170405181408_8042.png);
+	background-image:url(http://www.johnzian.cn/img/20170405181408_8042.png);
 }
 .pic5{
 	float:left;
-	background-image:url(../../static/img/20170405181422_5386.jpg);
+	background-image:url(http://www.johnzian.cn/img/20170405181422_5386.jpg);
 }
 .pic6{
 	float:left;
-	background-image:url(../../static/img/20170405181435_1481.jpg);
+	background-image:url(http://www.johnzian.cn/img/20170405181435_1481.jpg);
 }
 
 /*公告*/

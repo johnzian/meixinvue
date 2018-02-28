@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <h2>| 手机商城</h2>
-				    <img src="../../static/img/20170329123312_4663.png" alt="" class="erweima">
+				    <img src="http://www.johnzian.cn/img/20170329123312_4663.png" alt="" class="erweima">
                 </li>
 			</ul>
 		</div>

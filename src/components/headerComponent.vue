@@ -7,7 +7,7 @@
 			<li  v-if="!$store.state.islogin"><router-link :to="{ name: 'login'}" class="login">登陆</router-link></li>
 			<li  v-if="!$store.state.islogin"><router-link :to="{ name: 'register'}" class="register">注册</router-link></li>
 			<li  v-if="$store.state.islogin"><span class="register">欢迎回来，{{$store.state.userinfo.uphone}}</span></li>
-			<li><div id="weixin">微信商城<img src="../../static/img/jiantou_03.png"></div></li>
+			<li><div id="weixin">微信商城<img src="http://www.johnzian.cn/img/jiantou_03.png"></div></li>
 		</ul>
 		<ul id="tools_right">
 			<li class="tool_right"><router-link :to="{ name: 'personaldetails'}">个人中心</router-link></li>
@@ -18,7 +18,7 @@
 	</div>
 	<div class="headerMiddle clear">
 		<div class="logo">
-			<router-link :to="{ name: 'index'}"><img src="../../static/img/201707181448325969790.jpg" id="logo"></router-link>
+			<router-link :to="{ name: 'index'}"><img src="http://www.johnzian.cn/img/201707181448325969790.jpg" id="logo"></router-link>
 		</div>
 		<div id="shoppingcart">
 			<router-link :to="{ name: 'cart' }"><span>购物车<span class="cart_count">{{$store.state.userinfo.cartcount}}</span>件</span></router-link>
@@ -165,7 +165,7 @@
 #shoppingcart{
 	width:140px;
 	height:38px;
-	background-image:url(../../static/img/b4622be217307ffa82f706f2b6e270ed_cart-140-34.jpg);
+	background-image:url(http://www.johnzian.cn/img/b4622be217307ffa82f706f2b6e270ed_cart-140-34.jpg);
 	border:1px solid #dfdfdf;
 	margin-left:50px;
 	margin-top:27px;

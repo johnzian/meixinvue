@@ -74,7 +74,7 @@
 							<ul class="products_ul">
 								<li class="products" v-for="(items,index) in productList" :key="index">
 									<router-link :to="{ name: 'productdetail', query: { pid: items.pid }}" class="product_pic_title">
-										<img :src="'../../static/'+items.sbimg" alt="">
+										<img :src="'http://www.johnzian.cn/'+items.sbimg" alt="">
 										<p>{{items.title}}</p>
 									</router-link>
 									<p><span class="price">￥{{items.nprice}}</span><span class="normalpirce">￥{{items.mprice}}</span></p>

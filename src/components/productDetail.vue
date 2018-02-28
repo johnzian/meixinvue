@@ -12,11 +12,11 @@
 					<!-- 上半的左边图片 -->
 					<div class="details_top_left">
 						<div class="smallbox">
-							<img class="smallpic" :src="'../../static/'+product.sbimg">
+							<img class="smallpic" :src="'http://www.johnzian.cn/'+product.sbimg">
 							<div class="floatbox"></div>
 						</div>
 						<div class="bigbox">
-							<img class="bigpic" src="../../static/img/220_201611211511533145590.jpg" alt="">
+							<img class="bigpic" src="http://www.johnzian.cn/img/220_201611211511533145590.jpg" alt="">
 						</div>
 						<div>
 							<ul class="productpic_list">
@@ -78,7 +78,7 @@
 							<ul class="topsales_ul">
                                 <li class="topsales_li" v-for="(items,index) in topSales" :key="index">
                                     <router-link :to="{ name: 'productdetail', query: { pid: items.pid }}" class="topsales_a">
-                                    <img class="topsales_img" :src="'../../static/'+items.mimg"/>
+                                    <img class="topsales_img" :src="'http://www.johnzian.cn/'+items.mimg"/>
                                         <div class="topsales_font">
                                             <p class="topsales_title">{{items.title}}</p>
                                             <p class="topsales_price">¥{{items.nprice}}</p>
@@ -94,7 +94,7 @@
 							<div class="product_details_title_inside">商品详情</div>
 						</div>
 						<div class="product_details_pic">
-                            <img src="../../static/img/220_201611211511533145590.jpg" alt="">
+                            <img src="http://www.johnzian.cn/img/220_201611211511533145590.jpg" alt="">
                             <p class="pic_warning">*本商品不适用七日无理由退货</p>
 						</div>
 					</div>
@@ -106,7 +106,7 @@
 					<ul class="product_footer_ul">
 						<li class="product_footer_li" v-for="(items,index) in maybe" :key="index">
 							<router-link :to="{ name: 'productdetail', query: { pid: items.pid }}" class="product_footer_a">
-								<img class="product_footer_img" :src="'../../static/'+items.limg"/>
+								<img class="product_footer_img" :src="'http://www.johnzian.cn/'+items.limg"/>
 								<p class="product_footer_title">{{items.title}}</p>
 								<p class="product_footer_price">¥{{items.nprice}}</p>
 							</router-link>

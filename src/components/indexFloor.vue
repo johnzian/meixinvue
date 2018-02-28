@@ -12,7 +12,7 @@
 						<ul class="product_ul index_cake">
               <li class="product" v-for="item in productlist" :key="item.pid">
 								<router-link :to="{ name: 'productdetail',query:{pid:item.pid}}" class="pic">
-									<img :src="'../../static/'+item.limg" alt="1">
+									<img :src="'http://www.johnzian.cn/'+item.limg" alt="1">
 								</router-link>
                 <p class="product_title">
 									<a href="product_details.html?pid=2333">
@@ -49,7 +49,7 @@
 		mounted(){
 			if(this.type=="cake"){
 				this.title="蛋糕馆";
-				this.bigpic="../../static/img/20170424144130_5178.jpg";
+				this.bigpic="http://www.johnzian.cn/img/20170424144130_5178.jpg";
 				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_cake.php')
         .then(function(res){
 					this.productlist=res.data;
@@ -57,7 +57,7 @@
 				this.tid=1001;
 			}else{
 				this.title="零食店";
-				this.bigpic="../../static/img/20170726171807_3157.png";
+				this.bigpic="http://www.johnzian.cn/img/20170726171807_3157.png";
 				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_desert.php')
         .then(function(res){
 					this.productlist=res.data;

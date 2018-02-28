@@ -12,7 +12,7 @@
                 <span>当前状态</span>
             </li>
             <li class="order_li" v-for="(items,index) in orderlist" :key="index">
-                <img :src="'../../static/'+items.simg" alt="">
+                <img :src="'http://www.johnzian.cn/'+items.simg" alt="">
                 <span class="product_title">{{items.title}}</span>
                 <span class="product_price">¥{{items.nprice}}</span>
                 <span class="product_count">{{items.count}}个</span>

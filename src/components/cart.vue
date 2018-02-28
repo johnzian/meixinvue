@@ -16,7 +16,7 @@
             <ul class="cart_list_ul">
                 <li class="cart_list_li" v-for="(items,index) in cartlist" :key="items.cid">
                     <div class="select"><input type="checkbox" class="cart_select"  v-model="checkmodel" :value="items"/></div>
-                    <div class="pic"><img :src="'../../static/'+items.simg" alt="" class="product_pic"/></div>
+                    <div class="pic"><img :src="'http://www.johnzian.cn/'+items.simg" alt="" class="product_pic"/></div>
                     <div class="info">
                         <p class="product_name">{{items.title}}</p><span class="can_take">支持自提</span>
                         <p class="more_info">重量：{{items.pound}}磅/ 口味：{{items.taste}}/</p>
