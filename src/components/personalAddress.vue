@@ -78,7 +78,7 @@
         //获取用户地址
         getaddress(){
             this.addresslist;
-            this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/user_address.php')
+            this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/user_address.php')
             .then((res)=>{
                 this.addresslist=res.data;
             })
@@ -114,7 +114,7 @@
         //添加地址
         addAddress(){
             this.$axios({
-                url:'http://127.0.0.1/meixinvue/src/server/php/route/add_address.php',
+                url:'http://www.johnzian.cn/MeiXinVueCli/php/route/add_address.php',
                 method:'post',
                 data:{
                 receiver : this.receiver,

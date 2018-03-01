@@ -50,7 +50,7 @@
 			if(this.type=="cake"){
 				this.title="蛋糕馆";
 				this.bigpic="http://www.johnzian.cn/img/20170424144130_5178.jpg";
-				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_cake.php')
+				this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/index_cake.php')
         .then(function(res){
 					this.productlist=res.data;
 				})
@@ -58,7 +58,7 @@
 			}else{
 				this.title="零食店";
 				this.bigpic="http://www.johnzian.cn/img/20170726171807_3157.png";
-				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_desert.php')
+				this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/index_desert.php')
         .then(function(res){
 					this.productlist=res.data;
 				})

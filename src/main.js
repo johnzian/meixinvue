@@ -10,6 +10,7 @@ import store from './store/store';
 import axios from 'axios';
 import qs from 'qs';
 axios.defaults.withCredentials=true;//默认跨域记住session
+// axios.defaults.headers
 axios.defaults.transformRequest = [function (data) {
   data=qs.stringify(data);//把axios的json格式字符转为字符串
   return data;

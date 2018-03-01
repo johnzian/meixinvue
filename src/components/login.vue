@@ -67,7 +67,7 @@
 		  },
 		  //用户名登陆
 		  nameLogin:function(){
-			  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password)
+			  this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password)
 			  .then((res)=>{
 				  if(res.data!=0){
 					  alert('登录成功');
@@ -76,7 +76,7 @@
 					  this.$store.commit('login',this.userinfo);
 					  this.setSession(res.data,this.username);
 					//   console.log(this.$store.state.userinfo);
-					this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
+					this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/cart_check.php?uid='+this.userinfo.uid)
 					.then((res)=>{
 						this.userinfo.cartcount=parseInt(res.data);
 						this.$store.commit('checkcart',this.userinfo.cartcount);
@@ -91,7 +91,7 @@
 
 			// this.$http({
             //     method:'post',
-            //     url:'http://127.0.0.1/meixinvue/src/server/php/route/user_login.php',
+            //     url:'http://www.johnzian.cn/MeiXinVueCli/php/route/user_login.php',
             //     data:{'uphone':this.username,'upwd':this.password},
             //     headers: {"X-Requested-With": "XMLHttpRequest"
 			// 		},
@@ -104,7 +104,7 @@
 
 			//使用了修改axios改变消息头的方法，返回数值总是空，也记不住session，放弃。
 
-			// this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password,
+			// this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/user_login.php?uphone='+this.username+'&upwd='+this.password,
 			// {
 			// },
 			// {
@@ -128,10 +128,10 @@
 		  //手机号登陆
 		  phonelogin:function(){
 			  if(this.randomNumber==this.checkRandom){
-				  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/user_check.php?uphone='+this.phone)
+				  this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/user_check.php?uphone='+this.phone)
 				  .then(function(res){
 					  if(res.data==1){//如果用户已经注册
-							this.$http.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_login.php?uphone='+this.phone)
+							this.$http.post('http://www.johnzian.cn/MeiXinVueCli/php/route/phone_login.php?uphone='+this.phone)
 							.then(function(res){
 								if(res.data!=0){
 									alert('登录成功');
@@ -143,7 +143,7 @@
 								};
 							})
 					  }else{//如果用户没有注册
-							this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/phone_register.php?uphone='+this.phone)
+							this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/phone_register.php?uphone='+this.phone)
 							.then(function(res){
 									alert('注册成功并已登陆，密码为你的手机号');
 									this.userinfo.uid=res.data;

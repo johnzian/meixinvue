@@ -21,7 +21,7 @@
                     email：<input type="text" class="user_email">
                 </li>
                 <li class="personnal_li">
-                    <input type="button" value="确认提交" class="personnal_btn">
+                    <input type="button" value="暂不可用" class="personnal_btn">
                 </li>
             </ul>
         </div>

@@ -11,7 +11,7 @@
 		</ul>
 		<ul id="tools_right">
 			<li class="tool_right"><router-link :to="{ name: 'personaldetails'}">个人中心</router-link></li>
-			<li class="tool_right"><a href="MeiXinphone/Main.html">响应式VUE单页面版</a></li>
+			<li class="tool_right"><a href="http://www.johnzian.cn/">回到JQ版本</a></li>
 			<li class="tool_right">分享到：</li>
 			<li class="tool_right"><a href="javascript:;">切换繁体</a></li>
 		</ul>
@@ -75,7 +75,7 @@
 				//然后提交到vuex里面
 				this.$store.commit('login',this.userinfo);
 				//最后查一次购物车的数量
-				this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/cart_check.php?uid='+this.userinfo.uid)
+				this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/cart_check.php?uid='+this.userinfo.uid)
 				.then((res)=>{
 					this.userinfo.cartcount=parseInt(res.data);
 					this.$store.commit('checkcart',this.userinfo.cartcount);

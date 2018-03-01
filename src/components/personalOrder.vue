@@ -34,7 +34,7 @@
     methods:{
       getOrder(){
         this.orderlist=[];
-        this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/get_order.php')
+        this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/get_order.php')
         .then((res)=>{
           this.orderlist=res.data;
         })

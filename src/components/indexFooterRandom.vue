@@ -20,7 +20,7 @@
       }
 		},
 		mounted(){
-				this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/index_footer_random.php')
+				this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/index_footer_random.php')
         .then(function(res){
 					for(var i=0;i<7;i++){
 						this.productlist.push(res.data[parseInt(Math.random()*(res.data.length))]);

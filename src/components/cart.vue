@@ -84,7 +84,7 @@ import store from '@/store/store'
           getcartlist(){
               this.cartlist=[];
               this.checkmodel=[];
-              this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/showcart.php?uid='+this.$store.state.userinfo.uid)
+              this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/showcart.php?uid='+this.$store.state.userinfo.uid)
               .then((res)=>{
                   this.cartlist=res.data;
                   this.$store.commit('checkcart',res.data.length);//更新头部购物车数量
@@ -92,7 +92,7 @@ import store from '@/store/store'
           },
           //获取用户送货地址
           getaddress(){
-            this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/user_address.php?uid='+this.$store.state.userinfo.uid)
+            this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/user_address.php?uid='+this.$store.state.userinfo.uid)
             .then((res)=>{
                 this.addresslist=res.data;
             })
@@ -113,7 +113,7 @@ import store from '@/store/store'
           buyproduct(){
               if(this.selectAddress!=0){//如果用户选择了地址
                   for(var i = 0; i < this.checkmodel.length; i++){
-                    this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/add_order.php?uid='+this.$store.state.userinfo.uid+'&pid='+this.checkmodel[i].pid+'&count='+this.checkmodel[i].count+'&aid='+this.selectAddress+'&cid='+this.checkmodel[i].cid)
+                    this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/add_order.php?uid='+this.$store.state.userinfo.uid+'&pid='+this.checkmodel[i].pid+'&count='+this.checkmodel[i].count+'&aid='+this.selectAddress+'&cid='+this.checkmodel[i].cid)
                   }
                   alert('提交成功');
                   this.getcartlist();
@@ -123,7 +123,7 @@ import store from '@/store/store'
           },
           //删除购物车
           deleteproduct(cid){
-              this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/delete_cart.php?uid='+this.$store.state.userinfo.uid+'&cid='+cid)
+              this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/delete_cart.php?uid='+this.$store.state.userinfo.uid+'&cid='+cid)
               .then((res)=>{
                   if(res.data.code==200){
                       alert('删除成功');

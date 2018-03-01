@@ -4,7 +4,7 @@
 				<div class="place">
 					<span class="wenzi">手机号码</span>
 					<input type="text" id="phone" class="shuru">
-					<span></span>
+					<span>注册暂不可用</span>
 				</div>
 				<div class="place">
 					<span class="wenzi">密码</span>

@@ -147,7 +147,7 @@
 		  },
 		  //用于请求
 		  getlist(php){
-			this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/'+php+'?pnum='+this.pnum+'&type='+this.type)
+			this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/'+php+'?pnum='+this.pnum+'&type='+this.type)
 			.then(function(res){
 				 this.productList=res.data.data;
 				 this.pagecount=res.data.pagecount;

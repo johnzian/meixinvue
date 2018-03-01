@@ -155,7 +155,7 @@ import store from '@/store/store';
 	  },
 	  methods:{
 		  getproduct(){//获得产品详情
-			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/getproductbyid.php?pid='+this.$route.query.pid)
+			  this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/getproductbyid.php?pid='+this.$route.query.pid)
 			  .then(function(res){
 				  this.product=res.data;
 				  this.count=1;
@@ -163,20 +163,20 @@ import store from '@/store/store';
 			  })
 		  },
 		  gettopsales(){//销量列表
-			  this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/top_ten.php')
+			  this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/top_ten.php')
 			  .then(function(res){
 				  this.topSales=res.data;
 			  })
 		  },
 		  maybelike(){//同类型推荐
-			this.$http.get('http://127.0.0.1/meixinvue/src/server/php/route/maybelike.php?pid='+this.$route.query.pid)
+			this.$http.get('http://www.johnzian.cn/MeiXinVueCli/php/route/maybelike.php?pid='+this.$route.query.pid)
 			.then(function(res){
 				this.maybe=res.data;
 			})
 		  },
 		  addcart(){
 			  if(this.$store.state.islogin){
-				  this.$axios.post('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
+				  this.$axios.post('http://www.johnzian.cn/MeiXinVueCli/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
 				  .then((res)=>{
 					  if(res.data==1){
 						this.addcartsuccess=true;
@@ -189,7 +189,7 @@ import store from '@/store/store';
 			  }else{
 				  this.needlogin=true;
 			  }
-			// 	this.$axios.get('http://127.0.0.1/meixinvue/src/server/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
+			// 	this.$axios.get('http://www.johnzian.cn/MeiXinVueCli/php/route/add_cart.php?pid='+this.$route.query.pid+'&uid='+this.$store.state.userinfo.uid+'&count='+this.count)
 			// 	.then((res)=>{
 			// 		  if(res.data==1){
 			// 			  this.addcartsuccess=true;
